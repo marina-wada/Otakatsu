@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    root 'homes#top'
     resources :exchanges, only: [:index]
     resources :inquiries, only: [:index, :new, :create]
     resources :items, only: [:index]
