@@ -13,6 +13,10 @@
 
   <body class="d-flex flex-column vh-100">
     <header>
+      <%= form_with url: search_items_path, method: :get, local: true do |f| %>
+        <%= f.text_field :character %>
+        <% f.text_field: kind %>
+        <%= f.submit :search %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
     </header>
     <%= yield %>

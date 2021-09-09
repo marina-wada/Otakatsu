@@ -5,13 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :likes, dependent: :destroy
   has_many :items, dependent: :destroy
-  has_many :notifications, dependent: :destroy
+  # has_many :notifications, dependent: :destroy
   has_many :exchanges, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :inquiries, dependent: :destroy
-  has_many :reports, dependent: :destroy
 
-  has_many :reports, foreign_key: "reporting_user_id"
-  has_many :had_reports, class_name: "Report", foreign_key: "reported_user_id"
+  has_many :reports, foreign_key: "reporting_user_id", dependent: :destroy
+  has_many :had_reports, class_name: "Report", foreign_key: "reported_user_id", dependent: :destroy
 end

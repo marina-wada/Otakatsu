@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     post 'inquiries/complete'
     resources :items, only: [:index, :show, :new, :create, :destroy, :edit, :update] do
       resource :likes, only: [:create, :destroy]
+      get :search, on: :collection
     end
     resources :messages, only: [:create]
     resources :notifications, only: [:index]
