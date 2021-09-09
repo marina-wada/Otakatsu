@@ -1,6 +1,17 @@
-<h2>Log in</h2>
+<div class="container">
+  <div class="row">
+    <div class="lead">管理者ログイン</div>
+  </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-group row">
+      <%= f.label :email %>
+    </div>
+</div>
+
+
+
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
