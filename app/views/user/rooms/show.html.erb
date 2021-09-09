@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <h4 class="rooms-title">メッセージ</h4>
+    <% @entries.each do |e| %>
+      <div class="user-name">
+        <strong>
+          <a class="rooms-user-link" href="/users/<%= e.user.id %>">
+            <%= e.user.name %>さん
+          </a>
+        </strong>
+      </div>
+    <% end %>
+
+    <div class="chats">
+      <div class="chat">
+        <% if @messages.present? %>
+          <% @messages.each do |m| %>
+            <div class="chat-box">
+              <div class="chat-hukidashi"> <strong><%= m.content %></strong> <br>
+                <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="posts">
+      <%= form_with @message do |f| %>
+        <%= f.text_field :content, placeholder: "メッセージをご入力ください", size: 70, class: "form-text-field" %>
+        <%= f.hidden_field :room_id, value: @room.id %>
+        <%= f.submit "送信", class: "form-submit" %>
+      <% end %>
+    </div>
+
+  </div>
+</div>
