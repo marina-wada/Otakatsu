@@ -36,7 +36,4 @@ https://docs.google.com/spreadsheets/d/12wguiS8ZyXu5RvTyYl9ZuSK3xs7yzttZxY63exju
 - IDE：Cloud9
 
 ## 使用素材
-- https://www.designevo.com/
-- https://icooon-mono.com/
-- https://o-dan.net/ja/
-- https://www.ac-illust.com/
+https://www.designevo.com/
