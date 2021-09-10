@@ -12,7 +12,23 @@
   </head>
 
   <body class="d-flex flex-column vh-100">
-    <header>
+    <header class="shadow-sm">
+      <nav class="navbar navbar-ecpand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand p-3" href="/"><%= image_tag('logo.jpg') %></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" date-target="#navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+              <% if admins_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-dark" %>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
       <%= form_with url: search_items_path, method: :get, local: true do |f| %>
         <%= f.text_field :character %>
         <% f.text_field: kind %>
