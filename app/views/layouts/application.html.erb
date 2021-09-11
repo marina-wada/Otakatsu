@@ -19,21 +19,57 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" date-target="#navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+
+          <%= form_with url: search_items_path, method: :get, local: true do |f| %>
+            <%= f.text_field :character %>
+            <% f.text_field: kind %>
+            <%= f.submit :search %>
+          <% end %>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
               <% if admins_signed_in? %>
                 <li class="nav-item">
                   <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-dark" %>
                 </li>
+                <li class="nav-item">
+                  <%= link_to "交換", admin_exchanges_path, class: "nav-link text-dark" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "お問い合わせ", admin_inquiries_path, class: "nav-link text-dark" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "通報", admin_reports_path, class: "nav-link text-dark" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "ユーザー", admin_user_path, class: "nav-link text-dark" %>
+                </li>
+
+              <% elsif user_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to "出品", exchanges_path, class: "nav-link text-dark" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "通知", notifications_path, class: "nav-link text-dark" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "マイページ", user_path(current_user), class: "nav-link text-dark" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link text-dark" %>
+                </li>
+
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to "ログイン", new_user_session_path, class: "nav-link text-dark" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "新規登録", new_user_registration_path, class: "nav-link text-dark" %>
+                </li>
+
             </ul>
           </div>
         </div>
       </nav>
-      <%= form_with url: search_items_path, method: :get, local: true do |f| %>
-        <%= f.text_field :character %>
-        <% f.text_field: kind %>
-        <%= f.submit :search %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
     </header>
     <%= yield %>
   </body>
