@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <span class="lead mt-sm-5"><%= current_user.nickname %>さんのマイページ </span>
+  </div>
+
+
+  <h5 class="mt-sm-5">交換</h5>
+    <div class="row">
+      <div class="col-sm-2 ml-sm-3">
+        <%= link_to "出品したグッズ", items_path, class: "link" %>
+      </div>
+      <div class="col-sm-2">
+        <%= link_to "交換一覧", exchanges_path, class: "link" %>
+      </div>
+    </div>
+
+  <h5 class="mt-sm-4">ユーザー情報</h5>
+  <div class="row">
+    <div class="col-sm-2 ml-sm-3">
+      <%= link_to "編集", edit_user_path, class: "link" %>
+    </div>
+    <div class="col-sm-2">
+      <%= link_to "退会", unsubscribe_users_path, class: "link" %>
+    </div>
+  </div>
+
+  <h5 class="mt-sm-4">お問い合わせ</h5>
+  <div class="row">
+    <div class="col-sm-2 ml-sm-3">
+      <%= link_to "お問い合わせをする", new_inquiry_path, class: "link" %>
+    </div>
+    <div class="col-sm-2">
+      <%= link_to "履歴", inquiries_path, class: "link" %>
+    </div>
+  </div>
+</div>
