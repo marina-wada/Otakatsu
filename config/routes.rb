@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     resources :inquiries, only: [:index, :new, :create]
     resources :items, only: [:index]
     resources :reports, only: [:index]
-    resources :users, only: [:show]
+    resources :users, only: [:index,:show]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
