@@ -6,9 +6,7 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "users/shared/error_messages", resource: resource %>
     <div class="form-group row mt-sm-5">
-      <%#= f.label :名前, class: "col-form-label-sm" %>
       <%= f.label :名前, class: "col-sm-4 col-form-label" %>
-
       <div class="col-sm-3">
         <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control form-control-sm" %>
       </div>
