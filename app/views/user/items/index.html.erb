@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div class="lead mt-sm-5">出品一覧</div>
+  </div>
+
+  <% @items.each do |item| %>
+    <div class="row">
+      <div class="col">
+        <h5 class="mt-sm-3"><%= item.genre.name %></h5>
+      </div>
+      <div class="col"><%= item.ask_item %></div>
+      <div class="col"><%= attachment_image_tag item, :image, format: 'jpeg', size: "50x50" %></div>
+    </div>
+  <% end %>
+</div>
