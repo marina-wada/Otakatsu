@@ -6,4 +6,9 @@ class User::ItemsController < ApplicationController
       @items = Item.none
     end
   end
+
+  def index
+    @items = Item.all
+  end
 end
+
