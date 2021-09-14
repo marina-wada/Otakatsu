@@ -1,15 +1,36 @@
 <div class="container">
+  <% if @genre.errors.any? %>
+    <%= @genre.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
+  <% end %>
+
   <div class="row">
-    <div class="lead mt-sm-5">出品</div>
+    <div class="lead mt-sm-5 ml-sm-2">出品</div>
   </div>
-  
-  <div class="row">
+
+  <div class="row mt-sm-5">
+    <h6 class="col-sm-3">登録済作品・イベントに追加</h6>
     <% @genres.each do |genre|%>
-      <div class="col mt-sm-5">
-        <%= genre.name %>
+      <div class="col">
+        <%= link_to genre.name, new_item_path, class: "link" %>
       </div>
     <% end %>
-    
+
+    <%= form_with model:@genre, url: genres_path, local:true do |f| %>
+      <div class="col-sm-9 ml-sm-2">
+        <div class="row">
+          <%= f.label :作品・イベント名新規追加 %>
+        </div>
+        <div class="row mt-sm-2">
+          <%= f.text_field :name, size: 30 %>
+        </div>
+        <div class="row mt-sm-2 text-right">
+          <%= f.submit "追加", class: "btn btn-success btn-sm" %>
+        </div>
+      </div>
+    <% end %>
+
 
   </div>
 </div>
