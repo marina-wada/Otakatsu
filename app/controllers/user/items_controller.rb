@@ -2,12 +2,13 @@ class User::ItemsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @items = current_user.item
+    @items = current_user.items
   end
 
   def new
     @item = Item.new
     @items = current_user.items
+    @genre = current_user.genres
   end
 
   def create

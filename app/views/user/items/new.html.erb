@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row mt-sm-5">
-    <div class="lead"><%= @item.genre_name %>のグッズを譲る</div>
+    <div class="lead"><%= @genre.name %>のグッズを譲る</div>
   </div>
 
   <div class="row mt-sm-5">
@@ -33,7 +33,7 @@
             <%=f.text_field :ask_item, class: "form-control form-control-sm" %>
           <!--</div>-->
           <!--<div class="col-sm-2">-->
-            <%= link_to "追加", new_item_path, class: "btn btn-success btn-sm form-control form-control-sm" %>
+            <%= link_to "追加", new_item_path, class: "mt-sm-2 btn btn-success btn-sm form-control form-control-sm" %>
           <!--</div>-->
           <% @items.each do |item| %>
             <div class="row">

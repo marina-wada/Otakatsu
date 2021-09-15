@@ -5,6 +5,10 @@ class Item < ApplicationRecord
   has_many :likes, dependent: :destroy
   attachment :image
 
+  validates :ask_item, presence: true
+  validates :character, presence: true
+  validates :image, presence: true
+
   def liked_by?(user)
     likes.where(user_id: user.id).exists?
   end
