@@ -26,25 +26,23 @@
           <%=f.text_area :introduction, class: "form-control form-control-sm" %>
         </div>
 
-        <div class="form-group row">
-          <%= f.label :求めるグッズ, class: "col-form-label col-form-label-sm" %>
+        <%=f.hidden_field :genre_id,value:@genre.id %>
 
-          <!--<div class="col-sm-2">-->
-            <%=f.text_field :ask_item, class: "form-control form-control-sm" %>
-          <!--</div>-->
-          <!--<div class="col-sm-2">-->
-            <%= link_to "追加", new_item_path, class: "mt-sm-2 btn btn-success btn-sm form-control form-control-sm" %>
-          <!--</div>-->
-          <% @items.each do |item| %>
-            <div class="row">
-              <%= ask_item %>
-              <div class="col-sm-2"><%= link_to "削除", new_item_path, class: "btn btn-success btn-sm form-control form-control-sm", method: :destroy %></div>
-            </div>
-          <% end %>
+        <div class="form-group row">
+          <%= f.label :求めるグッズ, class: "col-form-label col-form-label-sm" %><br>
+          <%=f.text_field :ask_item, class: "form-control form-control-sm" %><br>
+          <%= link_to "追加", new_item_path(@genre.id), class: "mt-sm-2 btn btn-success btn-sm form-control form-control-sm" %>
         </div>
 
-        <div class="form-group row">
-          <%= link_to "一覧に追加", new_item_path, class: "btn btn-success btn-sm form-control form-control-sm" %>
+        <% @items.each do |item| %>
+          <div class="form-group row">
+            <%= item.ask_item %>
+              <div class="col-sm-5"><%= link_to "削除", new_item_path(@genre.id), class: "btn btn-success btn-sm form-control form-control-sm", method: :destroy %></div>
+          </div>
+        <% end %>
+
+        <div class="form-group row mt-sm-2">
+          <%= link_to "一覧に追加", new_item_path(@genre.id), class: "btn btn-success btn-sm form-control form-control-sm" %>
         </div>
 
         <div class="form-group row">
@@ -59,11 +57,11 @@
       <div class="col-sm-6 mt-sm-5">
         <div class="row">
           <div class="col-sm-2">
-            <%= attachment_image_tag item, :image, format: 'jpeg', size: "50x50" %>
-            <%= character %>
-            <%= kind %>
-            <%= introduction %>
-            <%= ask_item %>
+            <%= attachment_image_tag item, :image, format: 'jpeg', size: "50x50" %><br>
+            <%= item.character %><br>
+            <%= item.kind %><br>
+            <%= item.introduction %><br>
+            <%= item.ask_item %><br>
           </div>
         </div>
       </div>

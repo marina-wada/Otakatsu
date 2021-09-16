@@ -13,7 +13,7 @@
     <h6 class="col-sm-3">登録済作品・イベントに追加</h6>
     <% @genres.each do |genre|%>
       <div class="col">
-        <%= link_to genre.name, new_item_path, class: "link" %>
+        <%= link_to genre.name, new_item_path(genre.id), class: "link" %>
       </div>
     <% end %>
 

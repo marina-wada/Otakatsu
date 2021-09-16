@@ -14,10 +14,11 @@ Rails.application.routes.draw do
     resources :inquiries, only: [:index, :new, :create]
     post 'inquiries/confirm'
     post 'inquiries/complete'
-    resources :items, only: [:index, :show, :new, :create, :destroy, :edit, :update] do
+    resources :items, only: [:index, :show, :create, :destroy, :edit, :update] do
       resource :likes, only: [:create, :destroy]
       get :search, on: :collection
     end
+    get 'genres/:genre_id/items/new', to:'items#new', as:'new_item'
     resources :messages, only: [:create]
     resources :notifications, only: [:index]
     resources :reports, only: [:create, :update]

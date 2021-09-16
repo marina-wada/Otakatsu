@@ -9,7 +9,7 @@ class User::GenresController < ApplicationController
   def create
     @genre = Genre.new(genre_params)
     if @genre.save
-      redirect_to new_item_path
+      redirect_to new_item_path(@genre.id)
     else
       @genres = current_user.genres
       render :new

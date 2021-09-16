@@ -1,6 +1,6 @@
 class User::HomesController < ApplicationController
   def top
-    @exchange = Exchange.all
+    @items = Item.all
 
   end
 end

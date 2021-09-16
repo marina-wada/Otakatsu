@@ -8,19 +8,19 @@ class User::ItemsController < ApplicationController
   def new
     @item = Item.new
     @items = current_user.items
-    @genre = current_user.genres
+    @genre = Genre.find(params[:genre_id])
   end
 
   def create
-    @item = Item.new(item_params)
-    item.save
+    @item = current_user.items.new(item_params)
+    @item.save
     redirect_to items_path
   end
 
   def destroy
-    @items = Item.find(params[:id])
-    @items.destroy
-    redirect_to new_item_path
+    @item = Item.find(params[:id])
+    @item.destroy
+    redirect_to new_item_path(@item.genre_id)
   end
 
   def search
@@ -34,7 +34,7 @@ class User::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:ask_item, :character, :kind, :introduction, :image)
+    params.require(:item).permit(:ask_item, :character, :kind, :introduction, :genre_id, :image)
   end
 end
 
