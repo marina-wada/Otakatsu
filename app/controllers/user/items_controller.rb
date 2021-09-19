@@ -23,6 +23,15 @@ class User::ItemsController < ApplicationController
     redirect_to new_item_path(@item.genre_id)
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    @item.update
+  end
+
   def search
     if params[:character, :kind].present?
       @items = Item.where('character LIKE (?) OR kind LIKE (?)', "%#{params[:item]}%")
@@ -34,7 +43,10 @@ class User::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:ask_item, :character, :kind, :introduction, :genre_id, :image)
+    # もしimages: [] でうまくいかなければ
+    # images: [] から
+    # :images に変えてください
+    params.require(:item).permit(:ask_item, :character, :kind, :introduction, :genre_id, images: [])
   end
 end
 

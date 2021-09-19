@@ -10,12 +10,14 @@
   </div>
 
   <div class="row mt-sm-5">
-    <h6 class="col-sm-3">登録済作品・イベントに追加</h6>
-    <% @genres.each do |genre|%>
-      <div class="col">
-        <%= link_to genre.name, new_item_path(genre.id), class: "link" %>
-      </div>
-    <% end %>
+    <div class="col-sm-3">
+      <h6>登録済作品・イベントに追加</h6>
+      <% @genres.each do |genre|%>
+        <div class="mt-sm-3">
+          <%= link_to genre.name, new_item_path(genre.id), class: "link" %>
+        </div>
+      <% end %>
+    </div>
 
     <%= form_with model:@genre, url: genres_path, local:true do |f| %>
       <div class="col-sm-9 ml-sm-2">

@@ -1,15 +1,29 @@
 <div class="container">
   <div class="row">
-    <% if @item.liked_by?(current_user) %>
-      <%= link_to item_likes_path(@item), method: :delete do %>
-        <i class="far fa-heart" aria-hidden="true" style="color: red;"></i>
-        <%= @item.likes.count %>
+    <div class="col taxt-center mt-sm-5">
+      <%= if @item.images.attached? %>
+        <% @item.images.each do |image| %>
+          <%= image_tag image %>
+        <% end %>
       <% end %>
-    <% else %>
-      <%= link_to item_likes_path(@item), method: :post do %>
-        <i class="far fa-heart" aria-hidden="true"></i>
-        <%= @item.likes.count %>
+    </div>
+    
+    <div class="col taxt-center mt-sm-5">
+      <% if @item.liked_by?(current_user) %>
+        <%= link_to item_likes_path(@item), method: :delete do %>
+          <i class="far fa-heart" aria-hidden="true" style="color: red;"></i>
+          <%= @item.likes.count %>
+        <% end %>
+      <% else %>
+        <%= link_to item_likes_path(@item), method: :post do %>
+          <i class="far fa-heart" aria-hidden="true"></i>
+          <%= @item.likes.count %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+  </div>
+  
+  <div class="row">
+    
   </div>
 </div>

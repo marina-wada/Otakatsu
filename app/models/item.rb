@@ -3,7 +3,7 @@ class Item < ApplicationRecord
   belongs_to :exchange,optional:true
   belongs_to :genre
   has_many :likes, dependent: :destroy
-  attachment :image
+  has_many_attached :images
 
   validates :ask_item, presence: true
   validates :character, presence: true
