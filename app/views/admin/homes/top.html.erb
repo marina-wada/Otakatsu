@@ -1,2 +1,28 @@
-<h1>Admin::Homes#top</h1>
-<p>Find me in app/views/admin/homes/top.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="lead mt-sm-5">交換一覧</div>
+  </div>
+
+  <div class="row">
+    <% @exchanges.each do |each| %>
+      <table class="table">
+        <thead class="mt-sm-5">
+          <tr>
+            <th>日付</th>
+            <th colspan="2">譲</th>
+            <th colspan="2">求</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= exchange.created_at.strftime('%Y/%m/%d %-H:%-M:%-S') %></td>
+            <td><%= exchange.user.name %></td>
+            <td><%= exchange.item.character %></td>
+            <td><%= exchanged.user.name %></td>
+            <td><%= exchange.item.ask_item %></td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
