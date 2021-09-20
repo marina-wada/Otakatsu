@@ -21,18 +21,18 @@
               <td><%= f.text_field :name %></td>
               <td><%= f.text_area :introduction %></td>
               <td>
-                <%= link_to_remove_association "#{icon 'fas', 'trash-alt'}".html_safe , f, class: 'js-item-remove-btn' %>
+                <%= link_to_remove_association "#{icon 'fas', 'trash-alt'}".html_safe , f, class: 'js-image-remove-btn' %>
               </td>
             </tr>
-            <tr>
-              <td>
-                <%= f.fields_for :items, local: true, id: 'js-item-field' do |f| %>
-                  <%= render 'item_fields', f: log %>
-                  .links{data: {count: staffs.count}}
-                  <%= link_to_add_association "入力項目を追加", f, :logs, { class: 'js-add-item-field-btn' } %>
-                <% end %>
-              </td>
-            </tr>
+            <%= f.fields_for :post_images, local: true, id: 'js-post_image-field' do |post_image| %>
+              <%= render 'post_image_fields', f: post_image %>
+              .inks{data: {count: staffs.count}}
+              <tr>
+                <td>
+                  <%= link_to_add_association "入力項目を追加", f, :post_images, { class: 'js-add-post_image-field-btn' } %>
+                </td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
       </div>

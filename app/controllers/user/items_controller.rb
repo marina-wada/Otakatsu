@@ -46,7 +46,7 @@ class User::ItemsController < ApplicationController
     # もしimages: [] でうまくいかなければ
     # images: [] から
     # :images に変えてください
-    params.require(:item).permit(:ask_item, :character, :kind, :introduction, :genre_id, images: [])
+    params.require(:item).permit(:ask_item, :character, :kind, :introduction, :genre_id, images: [], post_image_attributes: [:image_id, :_destroy])
   end
 end
 

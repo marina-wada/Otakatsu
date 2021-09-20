@@ -1,0 +1,4 @@
+<td><%= f.file_field :images, multiple: true %></td>
+<td><%= f.text_field :name %></td>
+<td><%= f.text_area :introduction %></td>
+<td><%= link_to_remove_association "#{icon 'fas', 'trash-alt'}".html_safe , f, class: 'js-image-remove-btn' %></td>

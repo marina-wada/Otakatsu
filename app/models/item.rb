@@ -3,7 +3,9 @@ class Item < ApplicationRecord
   belongs_to :exchange,optional:true
   belongs_to :genre
   has_many :likes, dependent: :destroy
-  has_many_attached :images
+  has_many :post_images, inverse_of: :item, dependent: :destroy
+  accepts_nested_attributes_for :post_images, allow_destroy: true
+  validates_associated :post_images
 
   validates :ask_item, presence: true
   validates :character, presence: true
