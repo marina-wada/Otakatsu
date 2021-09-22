@@ -13,7 +13,8 @@ class User::ItemsController < ApplicationController
 
   def create
     @item = current_user.items.new(item_params)
-    @item.save
+    # binding.pry
+    @item.save!
     redirect_to items_path
   end
 
@@ -43,10 +44,7 @@ class User::ItemsController < ApplicationController
   private
 
   def item_params
-    # もしimages: [] でうまくいかなければ
-    # images: [] から
-    # :images に変えてください
-    params.require(:item).permit(:ask_item, :character, :kind, :introduction, :genre_id, images: [], post_image_attributes: [:image_id, :_destroy])
+    params.require(:item).permit(:ask_item, :character, :kind, :introduction, :genre_id, :image)
   end
 end
 

@@ -6,7 +6,6 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :items, dependent: :destroy
   has_many :genres, through: :items
-  has_many :post_iamges, through: :items
   has_many :exchanges, dependent: :destroy
   has_many :entries, dependent: :destroy
   has_many :messages, dependent: :destroy

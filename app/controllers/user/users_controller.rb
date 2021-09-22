@@ -1,5 +1,7 @@
 class User::UsersController < ApplicationController
-
+  def show
+    @user = current_user
+  end
 
   def withdrawl
     @user = User.find(current_user.id)
