@@ -4,15 +4,12 @@
   </div>
 
   <div class="row">
-    <% if @item.images.attached %>
-      <% @item.images.each do |image| %>
+    <% @items.each do |item| %>
       <div class="col-sm-3">
         <%= link_to item_path(item) do %>
-          <%#= image_tag item, :image, format: 'jpeg', size: "50x50" %>
-          <%= image_tag image, format: 'jpeg', size: "50x50" %>
+          <%= attachment_image_tag item, :image, format: 'jpeg', size: "100x100" %>
         <% end %>
       </div>
-    <% end %>
     <% end %>
   </div>
 </div>

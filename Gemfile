@@ -68,5 +68,5 @@ gem 'refile-mini_magick'
 gem 'devise'
 gem 'font-awesome-sass', '~> 5.13'
 gem 'aws-sdk-s3', require: false
-gem 'cocoon'
+# gem 'cocoon'
 # gem 'nested_form'
