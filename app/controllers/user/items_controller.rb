@@ -5,6 +5,10 @@ class User::ItemsController < ApplicationController
     @items = current_user.items
   end
 
+  def show
+    @item = Item.find(params[:id])
+  end
+
   def new
     @item = Item.new
     @items = current_user.items
@@ -13,7 +17,6 @@ class User::ItemsController < ApplicationController
 
   def create
     @item = current_user.items.new(item_params)
-    # binding.pry
     @item.save!
     redirect_to items_path
   end

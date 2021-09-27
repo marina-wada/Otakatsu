@@ -21,9 +21,9 @@ Rails.application.routes.draw do
     get 'genres/:genre_id/items/new', to:'items#new', as:'new_item'
     resources :messages, only: [:create]
     resources :notifications, only: [:index]
-    resources :reports, only: [:create, :update]
     resources :rooms, only: [:create, :show]
     resources :users, only: [:show, :edit, :update] do
+      resource :reports, only: [:create]
       member do
         get 'check'
         patch 'withdrawl'
