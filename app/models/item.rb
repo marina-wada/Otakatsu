@@ -2,7 +2,6 @@ class Item < ApplicationRecord
   belongs_to :user
   belongs_to :exchange,optional:true
   belongs_to :genre
-  # belongs_to :report
   has_many :likes, dependent: :destroy
   attachment :image
   validates :ask_item1, presence: true

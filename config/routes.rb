@@ -16,6 +16,11 @@ Rails.application.routes.draw do
     post 'inquiries/complete'
     resources :items, only: [:index, :show, :create, :destroy, :edit, :update] do
       resource :likes, only: [:create, :destroy]
+      resource :reports, only: [:create]
+      member do
+        get 'check'
+        patch 'withdrawl'
+      end
       get :search, on: :collection
     end
     get 'genres/:genre_id/items/new', to:'items#new', as:'new_item'
@@ -23,7 +28,6 @@ Rails.application.routes.draw do
     resources :notifications, only: [:index]
     resources :rooms, only: [:create, :show]
     resources :users, only: [:show, :edit, :update] do
-      resource :reports, only: [:create]
       member do
         get 'check'
         patch 'withdrawl'

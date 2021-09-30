@@ -7,6 +7,7 @@ class User::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    # @genre = Genre.find(params[:genre_id])
   end
 
   def new
