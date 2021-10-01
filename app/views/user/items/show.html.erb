@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col taxt-center mt-sm-5">
+    <div class="col-sm-8 text-center mt-sm-5">
       <%= attachment_image_tag @item, :image, format: 'jpeg', size: "200x200" %>
     </div>
   </div>
 
   <div class="row">
-    <div class="col taxt-center mt-sm-5">
+    <div class="col-sm-4 text-right mt-sm-1">
       <% if @item.liked_by?(current_user) %>
         <%= link_to item_likes_path(@item), method: :delete do %>
           <i class="far fa-heart" aria-hidden="true" style="color: red;"></i>
@@ -20,51 +20,88 @@
       <% end %>
     </div>
 
-    <div class="col taxt-center mt-sm-5">
+    <div class="col-sm-4 mt-sm-1">
       <% if @item.user != current_user %>
         <%= link_to item_reports_path(@item.id), method: :post, data: { confirm: "この商品を通報してもよろしいでしょうか？" } do %>
-          <button type="button" class="btn btn-secondary">通報する</button>
+          <button type="button" class="btn btn-secondary btn-sm">通報する</button>
         <% end %>
       <% end %>
     </div>
   </div>
 
   <div class="row">
-    <div class="col">
-      <%#= @genre.name %>
-    </div>
-  </div>
+    <div class="col-sm-6 text-center">
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <td>作品・イベント名</td>
+            <td><%#= @genre.name %></td>
+          </tr>
+          <tr>
+            <td>キャタクター名</td>
+            <td><%= @item.character %></td>
+          </tr>
+          <tr>
+            <td>種類</td>
+            <td><%= @item.kind %></td>
+          </tr>
+          <tr>
+            <td>説明</td>
+            <td><%= @item.introduction %></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <%= form_with model: @item, local: true do |f| %>
+                <%= f.radio_button :ask_item1, 0 %><%= @item.ask_item1 %>
+              <% end %>
+            </td>
+          </tr>
+          <% if @item.ask_item2 != nil %>
+            <tr>
+              <td colspan="2">
+                <%= form_with model: @item, local: true do |f| %>
+                  <%= f.radio_button :ask_item2, 0 %><%= @item.ask_item2 %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          <% if @item.ask_item3 != nil %>
+            <tr>
+              <td colspan="2">
+                <%= form_with model: @item, local: true do |f| %>
+                  <%= f.radio_button :ask_item3, 0 %><%= @item.ask_item3 %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          <% if @item.ask_item4 != nil %>
+            <tr>
+              <td colspan="2">
+                <%= form_with model: @item, local: true do |f| %>
+                  <%= f.radio_button :ask_item4, 0 %><%= @item.ask_item4 %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          <% if @item.ask_item5 != nil %>
+            <tr>
+              <td colspan="2">
+                <%= form_with model: @item, local: true do |f| %>
+                  <%= f.radio_button :ask_item5, 0 %><%= @item.ask_item5 %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
 
   <div class="row">
     <div class="col">
-      <%= @item.character %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <%= @item.kind %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <%= @item.introduction %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <%= form_with model: @item, local: true do |f| %>
-        <label>求</label>
-        <%= f.radio_button :ask_item1, 0 %><%= @item.ask_item1 %>
+      <% if @item.user != current_user %>
+        <%= link_to "交換を申し込む", exchange_path(@item, exchange.id), class: "btn btn-success", data: { confirm: "交換を申し込みますか？" } %>
+      <% else %>
+        <%= link_to "編集する", edit_item_path(@item), class: "btn btn-info btn-sm" %>
       <% end %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <%#= link_to "交換を申し込む", exchange_path(@exchange), class: "btn btn-success", data: { confirm: "交換を申し込みますか？" } %>
     </div>
   </div>
 </div>
