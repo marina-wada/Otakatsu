@@ -17,7 +17,7 @@ class User::ReportsController < ApplicationController
   
   def check
     
-  end
+  end 
 
   private
 

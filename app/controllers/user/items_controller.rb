@@ -7,7 +7,6 @@ class User::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    # @genre = Genre.find(params[:genre_id])
   end
 
   def new
@@ -48,7 +47,7 @@ class User::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:ask_item, :character, :kind, :introduction, :genre_id, :image)
+    params.require(:item).permit(:ask_item1, :ask_item2, :ask_item3, :ask_item4, :ask_item5, :character, :kind, :introduction, :genre_id, :image)
   end
 end
 
