@@ -11,8 +11,8 @@ class User < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :inquiries, dependent: :destroy
 
-  has_many :reports, foreign_key: "reporting_user_id", dependent: :destroy
-  has_many :had_reports, class_name: "Report", foreign_key: "reported_user_id", dependent: :destroy
+  has_many :reports, foreign_key: "reporter_id", dependent: :destroy
+  has_many :had_reports, class_name: "Report", foreign_key: "reported_id", dependent: :destroy
 
   has_many :active_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy
   has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
