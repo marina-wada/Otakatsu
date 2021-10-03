@@ -3,36 +3,35 @@ class User::ReportsController < ApplicationController
     @item = Item.find(params[:item_id])
     report_count = Report.where(reported_id: @item.user_id).count
     @report = Report.new(reporter_id: current_user.id, reported_id: @item.user_id, amount: report_count+1)
+   # binding.pry
     if @report.save
       if @report.amount > 10
-        @report.reported_id.update(is_active: false)
+        #@report.reported_id.update(is_active: false)
+        @item.user.update(is_active: "退会済")
+        @item.user.likes.destroy_all
+        @item.user.items.destroy_all
+        @item.user.genres.destroy_all
+        @item.user.exchanges.destroy_all
+        @item.user.entries.destroy_all
+        @item.user.messages.destroy_all
+        @item.user.inquiries.destroy_all
+        @item.user.reports.destroy_all
+        @item.user.had_reports.destroy_all
+        @item.user.active_notifications.destroy_all
+        @item.user.passive_notifications.destroy_all
         redirect_to root_path
       end
-      redirect_to item_path(@item), notice: "通報しました"
-    else flash[:notice] = "既に通報済みです"
+      flash[:notice] = "通報しました"
+      render 'user/items/show'
+    else
+      flash[:notice] = "既に通報済みです"
       render 'user/items/show'
     end
 
   end
-
-  # def withdrawl
-  #   @report = Report.find(report_params)
-  #   if @report.amount > 10
-  #     @report.reported_id.update(is_active: false)
-  #     redirect_to root_path
-  #   end
-  # end
-
-  # def check
-
-  # end
-
   private
 
   def report_params
     params.permit(:user_id, :item_id)
   end
-
-
-
 end

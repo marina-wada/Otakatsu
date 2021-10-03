@@ -17,4 +17,10 @@ class User < ApplicationRecord
   has_many :active_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy
   has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
 
+  enum is_active: { '有効': true, '退会済': false }
+
+  def active_for_authentication?
+    super && self.is_active == '有効'
+  end
+
 end
