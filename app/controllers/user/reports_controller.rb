@@ -3,10 +3,8 @@ class User::ReportsController < ApplicationController
     @item = Item.find(params[:item_id])
     report_count = Report.where(reported_id: @item.user_id).count
     @report = Report.new(reporter_id: current_user.id, reported_id: @item.user_id, amount: report_count+1)
-   # binding.pry
     if @report.save
       if @report.amount > 10
-        #@report.reported_id.update(is_active: false)
         @item.user.update(is_active: "退会済")
         @item.user.likes.destroy_all
         @item.user.items.destroy_all
@@ -19,13 +17,13 @@ class User::ReportsController < ApplicationController
         @item.user.had_reports.destroy_all
         @item.user.active_notifications.destroy_all
         @item.user.passive_notifications.destroy_all
-        redirect_to root_path
+        redirect_to root_path and return
       end
       flash[:notice] = "通報しました"
-      render 'user/items/show'
+      render 'user/items/show' and return
     else
       flash[:notice] = "既に通報済みです"
-      render 'user/items/show'
+      render 'user/items/show' and return
     end
 
   end
