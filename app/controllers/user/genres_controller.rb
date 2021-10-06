@@ -16,6 +16,17 @@ class User::GenresController < ApplicationController
     end
   end
 
+  def edit
+    @genre = Genre.find_by(params[:name])
+    @genres = current_user.genres
+  end
+
+  def update
+    @genre = Genre.find_by(params[:name])
+    @genre.update(genre_params)
+    redirect_to new_genre_path
+  end
+
   private
   def genre_params
     params.require(:genre).permit(:name)

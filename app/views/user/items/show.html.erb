@@ -81,7 +81,7 @@
         <% if @item.user != current_user %>
           <%= link_to "交換を申し込む", exchange_path(@item), class: "btn btn-success", data: { confirm: "交換を申し込みますか？" } %>
         <% else %>
-          <%= link_to "編集する", edit_item_path(@item), class: "btn btn-info btn-sm" %>
+          <%= link_to "編集する", edit_genre_path(current_user), class: "btn btn-info btn-sm" %>
         <% end %>
       </div>
     </div>

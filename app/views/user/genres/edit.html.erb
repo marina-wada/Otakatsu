@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="lead mt-5">作品名・イベント名編集</div>
+  </div>
+
+  <%= form_with model:@genre, url: genre_path(@genre), local:true do |f| %>
+    <div class="form-group row">
+      <div class="col">
+        <% @genres.each do |genre| %>
+          <%= f.text_field :name, autofocus: true, class: "form-control" %>
+        <% end %>
+        <%= f.submit "更新", class: "btn btn-success btn-sm" %>
+      </div>
+    </div>
+  <% end %>
+</div>

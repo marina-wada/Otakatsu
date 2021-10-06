@@ -17,6 +17,9 @@
           <%= link_to genre.name, new_item_path(genre.id), class: "link" %>
         </div>
       <% end %>
+      <div class="col">
+        <%= link_to "編集", edit_genre_path(current_user), class: "btn-primary" %>
+      </div>
     </div>
 
     <%= form_with model:@genre, url: genres_path, local:true do |f| %>
