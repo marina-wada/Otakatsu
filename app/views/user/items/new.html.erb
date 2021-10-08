@@ -6,46 +6,56 @@
   <div class="row mt-sm-5">
     <%= form_with model: @item, url: items_path, local:true do |f| %>
       <div class="row">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>グッズ画像</th>
-              <th>キャラクター名</th>
-              <th>種類</th>
-              <th>説明</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= f.attachment_field :image %></td>
-              <td><%= f.text_field :character %></td>
-              <td><%= f.text_field :kind %></td>
-              <td><%= f.text_area :introduction %></td>
-            </tr>
-          </tbody>
-        </table>
-        <table class=table "mt-sm-3">
-          <thead>
-            <tr>
-              <th>求めるグッズ1</th>
-              <th>求めるグッズ2</th>
-              <th>求めるグッズ3</th>
-              <th>求めるグッズ4</th>
-              <th>求めるグッズ5</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><%= f.text_field :ask_item1 %></td>
-              <td><%= f.text_field :ask_item2 %></td>
-              <td><%= f.text_field :ask_item3 %></td>
-              <td><%= f.text_field :ask_item4 %></td>
-              <td><%= f.text_field :ask_item5 %></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="col-xs-8 col-sm-6 col-md-5 form-group">
+          <%= f.label :グッズ画像, class: "col-form-label" %>
+          <div class="col-sm-4">
+           <%= f.attachment_field :image %>
+          </div>
+        </div>
+        <div class="col-xs-8 col-sm-6 col-md-5 form-group">
+          <%= f.label :キャラクター名, class: "col-form-label" %>
+          <div class="col-sm-4">
+            <%= f.text_field :character %>
+          </div>
+        </div>
+        <div class="col-xs-8 col-sm-6 col-md-5 form-group">
+          <%= f.label :種類, class: "col-form-label" %>
+          <div class="col-sm-4">
+            <%= f.text_field :kind %>
+          </div>
+        </div>
+        <div class="col-xs-8 col-sm-6 col-md-5 form-group">
+          <%= f.label :説明, class: "col-form-label" %>
+          <div class="col-sm-4">
+            <%= f.text_area :introduction %>
+          </div>
+        </div>
       </div>
-      <div class="action">
+
+      <div class="row">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-2">
+          <%= f.label :求めるグッズ1, class: "col-form-label" %>
+          <%= f.text_field :ask_item1 %>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-2">
+          <%= f.label :求めるグッズ2, class: "col-form-label" %>
+          <%= f.text_field :ask_item2 %>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-2">
+          <%= f.label :求めるグッズ3, class: "col-form-label" %>
+          <%= f.text_field :ask_item3 %>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-2">
+          <%= f.label :求めるグッズ4, class: "col-form-label" %>
+          <%= f.text_field :ask_item4 %>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-2">
+          <%= f.label :求めるグッズ5, class: "col-form-label" %>
+          <%= f.text_field :ask_item5 %>
+        </div>
+      </div>
+
+      <div class="action mt-3">
         <%= f.hidden_field :genre_id, :value => @genre.id %>
         <%= f.submit "出品", class: "btn btn-primary btn-sm" %>
       </div>
