@@ -9,25 +9,25 @@
         <div class="col-xs-8 col-sm-6 col-md-5 form-group">
           <%= f.label :グッズ画像, class: "col-form-label" %>
           <div class="col-sm-4">
-           <%= f.attachment_field :image %>
+           <%= f.attachment_field :image, class: "form-control" %>
           </div>
         </div>
         <div class="col-xs-8 col-sm-6 col-md-5 form-group">
           <%= f.label :キャラクター名, class: "col-form-label" %>
           <div class="col-sm-4">
-            <%= f.text_field :character %>
+            <%= f.text_field :character, class: "form-control" %>
           </div>
         </div>
         <div class="col-xs-8 col-sm-6 col-md-5 form-group">
           <%= f.label :種類, class: "col-form-label" %>
           <div class="col-sm-4">
-            <%= f.text_field :kind %>
+            <%= f.text_field :kind, class: "form-control" %>
           </div>
         </div>
         <div class="col-xs-8 col-sm-6 col-md-5 form-group">
           <%= f.label :説明, class: "col-form-label" %>
           <div class="col-sm-4">
-            <%= f.text_area :introduction %>
+            <%= f.text_area :introduction, class: "form-control" %>
           </div>
         </div>
       </div>

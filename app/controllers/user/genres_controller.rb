@@ -8,10 +8,11 @@ class User::GenresController < ApplicationController
 
   def create
     @genre = Genre.find_or_create_by(name: params[:genre][:name])
-    if @genre
+    if !@genre.id.nil?
       redirect_to new_item_path(@genre.id)
     else
       @genres = current_user.genres
+      flash.now[:alert] = "作品名・イベント名を入力してください"
       render :new
     end
   end

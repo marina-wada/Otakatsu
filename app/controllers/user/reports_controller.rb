@@ -19,10 +19,10 @@ class User::ReportsController < ApplicationController
         @item.user.passive_notifications.destroy_all
         redirect_to root_path and return
       end
-      flash[:notice] = "通報しました"
+      flash.now[:notice] = "通報しました"
       render 'user/items/show' and return
     else
-      flash[:notice] = "既に通報済みです"
+      flash.now[:notice] = "既に通報済みです"
       render 'user/items/show' and return
     end
 

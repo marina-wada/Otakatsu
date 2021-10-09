@@ -1,8 +1,6 @@
 <div class="container">
   <div class="row">
-    <% if flash[:notice] %>
-      <p><%= flash[:notice] %></p>
-    <% end %>
+    <%= render partial: 'layouts/flash' %>
   </div>
 
   <div class="row">
