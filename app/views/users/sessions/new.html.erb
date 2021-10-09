@@ -1,5 +1,8 @@
 <div class="container">
   <div class="row">
+    <%= render partial: 'layouts/flash' %>
+  </div>
+  <div class="row">
     <span class="lead mt-sm-5">ログイン</span>
   </div>
 
@@ -18,7 +21,7 @@
       </div>
     </div>
 
-    <div class="actions text-right">
+    <div class="actions text-md-right">
       <%= f.submit "ログインする", class: "btn btn-success" %>
     </div>
   <% end %>

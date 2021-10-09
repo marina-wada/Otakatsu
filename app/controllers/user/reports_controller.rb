@@ -23,7 +23,7 @@ class User::ReportsController < ApplicationController
       render 'user/items/show' and return
     else
       flash.now[:notice] = "既に通報済みです"
-      render 'user/items/show' and return
+      redirect_to item_path(@item)
     end
 
   end
