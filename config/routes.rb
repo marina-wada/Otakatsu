@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     sessions: 'admins/sessions'
   }
 
+  devise_scope :user do
+    get '/users', to: 'users/registrations#new'
+  end
+
   scope module: :user do
     root 'homes#top'
     resources :exchanges, only: [:index, :show]
