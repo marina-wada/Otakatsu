@@ -19,6 +19,12 @@ class User < ApplicationRecord
 
   enum is_active: { '有効': true, '退会済': false }
 
+  validates :name, presence: true
+  validates :nickname, presence: true
+  validates :telephone_number, presence: true
+  validates :postal_code, presence: true
+  validates :address, presence: true
+
   def active_for_authentication?
     super && self.is_active == '有効'
   end
