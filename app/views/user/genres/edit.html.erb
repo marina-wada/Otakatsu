@@ -1,15 +1,15 @@
 <div class="container">
   <div class="row">
-    <div class="lead mt-5">作品名・イベント名編集</div>
+    <%= render partial: 'layouts/flash' %>
   </div>
-
+  <div class="row">
+    <div class="lead mt-sm-5">作品名・イベント名編集</div>
+  </div>
   <%= form_with model:@genre, url: genre_path(@genre), local:true do |f| %>
     <div class="form-group row">
-      <div class="col">
-        <% @genres.each do |genre| %>
-          <%= f.text_field :name, autofocus: true, class: "form-control" %>
-        <% end %>
-        <%= f.submit "更新", class: "btn btn-success btn-sm" %>
+      <div class="col-xs-6 col-sm-6 col-md-6 mt-sm-5">
+        <%= f.text_field :name, autofocus: true, class: "form-control", size: 30 %>
+        <%= f.submit "更新", class: "btn btn-success btn-sm mt-3" %>
       </div>
     </div>
   <% end %>
