@@ -17,8 +17,14 @@ class User::ItemsController < ApplicationController
 
   def create
     @item = current_user.items.new(item_params)
-    @item.save!
-    redirect_to items_path
+    if @item.save
+       flash[:success] = '出品しました'
+       redirect_to items_path
+    else
+       @items = current_user.items
+       @genre = Genre.find_by(params[:genre_id])
+       render :new
+    end
   end
 
   def destroy
@@ -33,7 +39,13 @@ class User::ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    @item.update
+    if @item.update(item_params)
+       flash[:success] = '更新が完了しました'
+       redirect_to item_path(@item)
+    else
+      flash.now[:alert] = '更新に失敗しました'
+      render edit
+    end
   end
 
   def search

@@ -12,8 +12,8 @@ class User::GenresController < ApplicationController
       redirect_to new_item_path(@genre.id)
     else
       @genres = current_user.genres
-      flash.now[:alert] = "作品名・イベント名を入力してください"
-      render :new
+      flash[:alert] = "作品名・イベント名を入力してください"
+      redirect_to new_genre_path
     end
   end
 
@@ -27,8 +27,8 @@ class User::GenresController < ApplicationController
       flash[:success] = '更新が完了しました'
       redirect_to edit_genre_path(@genre.id)
     else
-      flash.now[:alert] = '更新に失敗しました'
-      render :edit
+      flash[:alert] = '更新に失敗しました'
+      redirect_to edit_genre_path(@genre.id)
     end
   end
 

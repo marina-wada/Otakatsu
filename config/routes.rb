@@ -11,14 +11,6 @@ Rails.application.routes.draw do
     get '/users', to: 'users/registrations#new'
   end
 
-  devise_scope :genre do
-    get '/genres', to: 'user/genres#new'
-  end
-
-  devise_scope :genre do
-    get '/genres/:id', to: 'user/genres#edit'
-  end
-
   scope module: :user do
     root 'homes#top'
     resources :exchanges, only: [:index, :show]
