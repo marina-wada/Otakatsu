@@ -4,6 +4,11 @@
   </div>
 
   <div class="row">
+    <div class="mt-sm-5 text-xs-left">
+      <%= @item.user.nickname %>のグッズ
+    </div>
+  </div>
+  <div class="row">
     <div class="col-xs-8 col-sm-9 col-md-5 text-md-center mt-xs-5 mt-sm-5">
       <%= attachment_image_tag @item, :image, format: 'jpeg', size: "250x250" %>
     </div>
@@ -34,8 +39,8 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-8 col-md-7 mt-sm-2">
-          <%= form_with model: @item, local: true do |f| %>
+        <%= form_with model: @item, url: new_exchange_path, local: true do |f| %>
+          <div class="col-sm-8 col-md-7 mt-sm-2">
             <div>
               <%= @item.genre.name %>
             </div>
@@ -72,16 +77,18 @@
                 <% end %>
               </div>
             </div>
-          <% end %>
+
+          </div>
         </div>
-      </div>
-      <div class="col-md-12 mt-md-5 mt-sm-2">
-        <% if @item.user != current_user %>
-          <%= link_to "交換を申し込む", exchange_path(@item), class: "btn btn-success", data: { confirm: "交換を申し込みますか？" } %>
-        <% else %>
-          <%= link_to "編集する", edit_item_path(current_user), class: "btn btn-info btn-sm" %>
-        <% end %>
-      </div>
+        <div class="col-md-12 mt-md-5 mt-sm-2">
+          <% if @item.user != current_user %>
+            <%= f.submit :交換を申し込む, class: "btn btn-success" %>
+          <% else %>
+            <%= link_to "編集する", edit_item_path(current_user), class: "btn btn-info btn-sm" %>
+          <% end %>
+          <% binding.pry %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

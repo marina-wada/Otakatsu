@@ -20,4 +20,16 @@ class User::ExchangesController < ApplicationController
     end
   end
 
+  def create
+    @item = Item.find_by[params(:id)]
+    @exchange = current_user.exchage.new(exchange_params)
+    @exchange.save
+    redirect_to exchanges_confirm_path
+  end
+
+  def confirm
+    @item = Item.find_by[params(:id)]
+
+  end
+
 end
