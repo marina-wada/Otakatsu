@@ -21,15 +21,24 @@ class User::ExchangesController < ApplicationController
   end
 
   def create
-    @item = Item.find_by[params(:id)]
+    @item = Item.find_by(params[:id])
     @exchange = current_user.exchage.new(exchange_params)
     @exchange.save
     redirect_to exchanges_confirm_path
   end
 
   def confirm
-    @item = Item.find_by[params(:id)]
-
+    @item = Item.find(params[:item][:item_id])
+    if params[:item][:ask_item] == "0"
+       @ask_item = @item.ask_item1
+    elsif params[:item][:ask_item] == "1"
+          @ask_item = @item.ask_item2
+    elsif params[:item][:ask_item] == "2"
+          @ask_item = @item.ask_item3
+    elsif params[:item][:ask_item] == "3"
+          @ask_item = @item.ask_item4
+    else  @ask_item = @item.ask_item5
+    end
   end
 
 end
