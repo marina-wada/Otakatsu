@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8 col-sm-8 col-sm-12 col-md-12 mt-5 text-md-center">
+      <p>
+        退会されるとこれまで出品されたグッズ情報、取引情報が削除されます。<br>
+        本当に退会されますか？
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-4 col-sm-4 col-md-6 text-sm-right mt-3">
+      <%= link_to "戻る", user_path(@user), class: "btn btn-primary btn-sm" %>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-6 text-sm-left mt-3">
+      <%= link_to "退会する", withdrawl_users_path, class: "btn btn-danger btn-sm", method: :patch, data: { confirm: "【確認】アカウント情報を削除してよろしいでしょうか？" } %>
+    </div>
+  </div>
+</div>
