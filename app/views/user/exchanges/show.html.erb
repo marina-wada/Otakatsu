@@ -1,5 +1,57 @@
 <div class="container">
   <div class="row">
+    <div class="lead">交換</div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-md-6"><%= @item.user.nickname %></div>
+    </div>
+    <div class="col-md-6"><%= attachment_image_tag @item, :image, format: 'jpeg', size: "250x250" %></div>
+    <div class="col-md-6">
+      <% if @exchange.status == "未交換" %>
+      <% elsif @exchange.status == "非承認" %>
+      <% else %>
+        <%= @item.user.address %><br>
+        <%= @item.user.name %>
+    </div>
+    <%= if @item.user == current_user %>
+      <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
+        <div class="col-md-6">
+          <%= f.select(:status, Exchange.statuses.keys) %>
+          <%= f.submit "更新", class: "btn btn-success btn-sm" %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= @exchange.status %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-md-6"><%= @exchange.user.nickname %></div>
+    </div>
+    <div class="col-md-6"><%= attachment_image_tag @item, :image, format: 'jpeg', size: "250x250" %></div>
+    <div class="col-md-6">
+      <% if @exchange.status == "未交換" %>
+      <% elsif @exchange.status == "非承認" %>
+      <% else %>
+        <%= @exchange.user.address %><br>
+        <%= @exchange.user.name %>
+    </div>
+    <%= if @item.user == current_user %>
+    <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
+      <div class="col-md-6">
+        <%= f.select(:status, Exchange.statuses.keys) %>
+        <%= f.submit "更新", class: "btn btn-success btn-sm" %>
+      </div>
+      <% end %>
+    <% else %>
+      <%= @exchange.status %>
+    <% end %>
+  </div>
+
+  <div class="row">
     <% if (current_user.exchanged_by? @user) && (@user.exchenged_by? current_user) %>
       <% if @isRoom == true %>
         <p class="exchange-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary">メッセージを送る</a></p>
