@@ -7,12 +7,11 @@ class User::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @exchage = Exchange.new
+    @exchange = Exchange.new
   end
 
   def new
     @item = Item.new
-    @items = current_user.items
     @genre = Genre.find(params[:genre_id])
   end
 

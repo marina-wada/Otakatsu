@@ -52,53 +52,42 @@
           <div>
             <%= @item.introduction %>
           </div>
-          <%= form_with model: @exchage, url: exchanges_path, local: true do |f| %>
-            <div class="col-xs-12 col-sm-12 col-md-12 mt-md-3">
-              <span><求めるグッズ></span><br>
-              <%= f.radio_button :ask_item, 0, checked: true %><%= @item.ask_item1 %>
-              <div>
-                <% if @item.ask_item2.present? %>
-                  <%= f.radio_button :ask_item, 1 %><%= @item.ask_item2 %>
-                <% end %>
-              </div>
-              <div>
-                <% if @item.ask_item3.present? %>
-                  <%= f.radio_button :ask_item, 2 %><%= @item.ask_item3 %>
-                <% end %>
-              </div>
-              <div>
-                <% if @item.ask_item4.present? %>
-                  <%= f.radio_button :ask_item, 3 %><%= @item.ask_item4 %>
-                <% end %>
-              </div>
-              <div>
-                <% if @item.ask_item5.present? %>
-                  <%= f.radio_button :ask_item, 4 %><%= @item.ask_item5 %>
-                <% end %>
-              </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 mt-md-3">
+            <span><求めるグッズ></span><br>
+            <div>
+              <%= @item.ask_item1 %>
+            </div>
+            <div>
+              <% if @item.ask_item2.present? %>
+                <%= @item.ask_item2 %>
+              <% end %>
+            </div>
+            <div>
+              <% if @item.ask_item3.present? %>
+                <%= @item.ask_item3 %>
+              <% end %>
+            </div>
+            <div>
+              <% if @item.ask_item4.present? %>
+                <%= @item.ask_item4 %>
+              <% end %>
+            </div>
+            <div>
+              <% if @item.ask_item5.present? %>
+                <%= @item.ask_item5 %>
+              <% end %>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="col-md-12 mt-md-5 mt-sm-2">
-
-          <% if @item.user != current_user %>
-            <div class="col-xs-8 col-sm-9 col-md-4 text-md-center mt-xs-5 mt-sm-5">
-              <p>
-                <%= @item.user.nickname %>さんに交換を申し込みますか？<br>
-                申し込む場合は交換対象のグッズ写真を添付してください。
-              </p>
-              <div class="col-xs-9 col-sm-9 col-md-9">
-                <%= f.attachment_field :image %>
-              </div>
-              <%= f.hidden_field :item_id, :value => @item.id %>
-            <%= f.submit :交換申し込みページへ, class: "btn btn-success" %>
-          </div>
-          <% else %>
-            <%= link_to "編集する", edit_item_path(current_user), class: "btn btn-info btn-sm" %>
-          <% end %>
-        </div>
-      <% end %>
+      <div class="col-md-12 mt-md-5 mt-sm-2">
+        <% if @item.user != current_user %>
+          <%= link_to "交換申し込みページへ", new_exchange_path(item_id: @item.id), class: "btn btn-success" %>
+        <% else %>
+          <%= link_to "編集する", edit_item_path(current_user), class: "btn btn-info btn-sm" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
