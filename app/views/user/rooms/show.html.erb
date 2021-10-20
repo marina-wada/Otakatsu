@@ -16,7 +16,7 @@
         <% if @messages.present? %>
           <% @messages.each do |m| %>
             <div class="chat-box">
-              <div class="chat-hukidashi"> <strong><%= m.content %></strong> <br>
+              <div class="chat-hukidashi"> <strong><%= m.message %></strong> <br>
                 <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>
               </div>
             </div>
@@ -26,8 +26,9 @@
     </div>
 
     <div class="posts">
-      <%= form_with @message do |f| %>
-        <%= f.text_field :content, placeholder: "メッセージをご入力ください", size: 70, class: "form-text-field" %>
+      <%= form_with model: @message, local: true do |f| %>
+
+        <%= f.text_field :message, placeholder: "メッセージをご入力ください", size: 70, class: "form-text-field" %>
         <%= f.hidden_field :room_id, value: @room.id %>
         <%= f.submit "送信", class: "form-submit" %>
       <% end %>

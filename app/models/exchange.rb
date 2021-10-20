@@ -1,6 +1,6 @@
 class Exchange < ApplicationRecord
   belongs_to :user
-  has_many :items, dependent: :destroy
+  belongs_to :item, optional:true
   attachment :image
 
   # after_commit do

@@ -1,8 +1,8 @@
 class User::ExchangesController < ApplicationController
   def show
-    @user = User.find(params[:id])
-    @item = Item.find(params[:item][:item_id])
-    @item = Item.find(params[:item_id])
+    @exchange = Exchange.find(params[:id])
+    @item = @exchange.item
+    @user = @exchange.item.user
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry = Entry.where(user_id: @user.id)
     unless @user.id == current_user.id
@@ -24,20 +24,20 @@ class User::ExchangesController < ApplicationController
 
   def create
     @exchange = current_user.exchanges.new(exchange_params)
-    # @item = Item.find_by(params[:id])
     @item = Item.find_by(params[:id])
-    binding.pry
-    if params[:item][:ask_item] == "0"
+    #@item = Item.find(params[:item][:item_id])
+    # binding.pry
+    if params[:exchange][:ask_item] == "0"
       @ask_item = @item.ask_item1
-    elsif params[:item][:ask_item] == "1"
+    elsif params[:exchange][:ask_item] == "1"
           @ask_item = @item.ask_item2
-    elsif params[:item][:ask_item] == "2"
+    elsif params[:exchange][:ask_item] == "2"
           @ask_item = @item.ask_item3
-    elsif params[:item][:ask_item] == "3"
+    elsif params[:exchange][:ask_item] == "3"
           @ask_item = @item.ask_item4
     else  @ask_item = @item.ask_item5
     end
-    @exchange.save(exchange_params)
+    @exchange.save
     redirect_to exchange_path(@exchange.id)
   end
 

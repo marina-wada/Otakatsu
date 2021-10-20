@@ -14,8 +14,9 @@
       <% else %>
         <%= @item.user.address %><br>
         <%= @item.user.name %>
+      <% end %>
     </div>
-    <%= if @item.user == current_user %>
+    <% if @item.user == current_user %>
       <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
         <div class="col-md-6">
           <%= f.select(:status, Exchange.statuses.keys) %>
@@ -38,8 +39,9 @@
       <% else %>
         <%= @exchange.user.address %><br>
         <%= @exchange.user.name %>
+      <% end %>
     </div>
-    <%= if @item.user == current_user %>
+    <% if @item.user == current_user %>
     <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
       <div class="col-md-6">
         <%= f.select(:status, Exchange.statuses.keys) %>
@@ -52,11 +54,11 @@
   </div>
 
   <div class="row">
-    <% if (current_user.exchanged_by? @user) && (@user.exchenged_by? current_user) %>
+    <% if (current_user.exchanged_by? @exchange.item) && (@exchange.status == "承認") %>
       <% if @isRoom == true %>
         <p class="exchange-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary">メッセージを送る</a></p>
       <% else %>
-        <%= form_with @room do |f| %>
+        <%= form_with model: @room, local: true do |f| %>
           <%= fields_for @entry do |e| %>
             <%= e.hidden_field :user_id, value: @user.id %>
           <% end %>
