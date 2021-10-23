@@ -7,16 +7,20 @@ class User::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @exchange = Exchange.new
+    @exchange = @item.exchanges.order(:updated_at, :desc).last
   end
 
   def new
     @item = Item.new
     @genre = Genre.find(params[:genre_id])
+    @exchange = @item.exchanges.build
   end
 
   def create
     @item = current_user.items.new(item_params)
+    @item.exchanges.build(status: '未交換')
+    # @exchange = @item.exchange.create(status: '未交換')
+    # @item.exchange_id = @exchange.id
     if @item.save
        flash[:success] = '出品しました'
        redirect_to items_path
@@ -57,7 +61,6 @@ class User::ItemsController < ApplicationController
   end
 
   private
-
   def item_params
     params.require(:item).permit(:ask_item1, :ask_item2, :ask_item3, :ask_item4, :ask_item5, :character, :kind, :introduction, :genre_id, :image)
   end

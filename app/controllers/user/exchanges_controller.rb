@@ -25,8 +25,6 @@ class User::ExchangesController < ApplicationController
   def create
     @exchange = current_user.exchanges.new(exchange_params)
     @item = Item.find_by(params[:id])
-    #@item = Item.find(params[:item][:item_id])
-    # binding.pry
     if params[:exchange][:ask_item] == "0"
       @ask_item = @item.ask_item1
     elsif params[:exchange][:ask_item] == "1"
