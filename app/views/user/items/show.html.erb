@@ -84,13 +84,15 @@
 
       <div class="col-md-12 mt-md-5 mt-sm-2">
         <% if @exchange.status == '未交換' %>
-          <%= link_to "交換申し込みページへ", new_exchange_path(item_id: @item.id), class: "btn btn-success" %>
+          <%= link_to "交換申し込みページへ", edit_exchange_path(item_id: @item.id, id: @exchange.id), class: "btn btn-success" %>
+          <%#= link_to "交換申し込みページへ", edit_exchange_path(@exchange), class: "btn btn-success" %>
         <% elsif @exchange.status == "交換希望" %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
         <% elsif @exchange.status == "承認" %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
         <% elsif @exchange.status == "非承認" %>
-          <%= link_to "交換申し込みページへ", new_exchange_path(item_id: @item.id), class: "btn btn-success" %>
+          <%#= link_to "交換申し込みページへ", edit_exchange_path(item_id: @item.id), class: "btn btn-success" %>
+          <%= link_to "交換申し込みページへ", edit_exchange_path(@exchange), class: "btn btn-success" %>
         <% elsif @exchange.status == "配送準備" %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
         <% elsif @exchange.status == "配送済" %>

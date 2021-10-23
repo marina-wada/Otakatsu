@@ -1,6 +1,8 @@
 class Exchange < ApplicationRecord
-  belongs_to :user, optional: true # 交換する人が現れるまで nil なので
+  belongs_to :user, optional: true
   belongs_to :item, optional: true
+  attachment :ask_item_image
+  validates :ask_item_image, presence: true
 
 
   # after_commit do

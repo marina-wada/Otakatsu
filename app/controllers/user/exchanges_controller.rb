@@ -2,7 +2,9 @@ class User::ExchangesController < ApplicationController
   def show
     @exchange = Exchange.find(params[:id])
     @item = @exchange.item
-    @user = @exchange.item.user
+    # binding.pry
+    @user = @exchange.user
+    # @user = @exchange.item.user
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry = Entry.where(user_id: @user.id)
     unless @user.id == current_user.id
@@ -22,7 +24,7 @@ class User::ExchangesController < ApplicationController
     end
   end
 
-  def create
+  def update
     @exchange = current_user.exchanges.new(exchange_params)
     @item = Item.find_by(params[:id])
     if params[:exchange][:ask_item] == "0"
@@ -40,8 +42,12 @@ class User::ExchangesController < ApplicationController
   end
 
   def new
-    @item = Item.find(params[:item_id])
     @exchange = Exchange.new
+  end
+
+  def edit
+   @item = Item.find(params[:item_id])
+   @exchange = Exchange.find(params[:id])
   end
 
   private
