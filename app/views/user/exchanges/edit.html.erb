@@ -1,5 +1,8 @@
 <div class="container">
   <div class="row">
+    <%= render partial: 'layouts/alert' %>
+  </div>
+  <div class="row">
     <div class="col-xs-8 col-sm-9 col-md-4 text-md-center mt-xs-5 mt-sm-5">
       <%= attachment_image_tag @item, :image, format: 'jpeg', size: "250x250" %>
     </div>
@@ -33,25 +36,25 @@
       <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
         <div class="col-xs-12 col-sm-12 col-md-12 mt-md-3">
           <span><求めるグッズ></span><br>
-          <%= f.radio_button :ask_item, 0, checked: true %><%= @item.ask_item1 %>
+          <%= radio_button_tag :ask_item, 0, checked: true %><%= @item.ask_item1 %>
           <div>
             <% if @item.ask_item2.present? %>
-              <%= f.radio_button :ask_item, 1 %><%= @item.ask_item2 %>
+              <%= radio_button_tag :ask_item, 1 %><%= @item.ask_item2 %>
             <% end %>
           </div>
           <div>
             <% if @item.ask_item3.present? %>
-              <%= f.radio_button :ask_item, 2 %><%= @item.ask_item3 %>
+              <%= radio_button_tag :ask_item, 2 %><%= @item.ask_item3 %>
             <% end %>
           </div>
           <div>
             <% if @item.ask_item4.present? %>
-              <%= f.radio_button :ask_item, 3 %><%= @item.ask_item4 %>
+              <%= radio_button_tag :ask_item, 3 %><%= @item.ask_item4 %>
             <% end %>
           </div>
           <div>
             <% if @item.ask_item5.present? %>
-              <%= f.radio_button :ask_item, 4 %><%= @item.ask_item5 %>
+              <%= radio_button_tag :ask_item, 4 %><%= @item.ask_item5 %>
             <% end %>
           </div>
         </div>
@@ -60,7 +63,7 @@
             <%= f.attachment_field :ask_item_image %>
           </div>
           <div class="col-xs-9 col-sm-9 col-md-9 mt-3">
-            <%= f.hidden_field :item_ide_tag, value: @item.id %>
+            <%= f.hidden_field :item_id_tag, value: @item.id %>
             <%= f.submit '交換を申し込む', class: "btn btn-success" %>
           </div>
         </div>

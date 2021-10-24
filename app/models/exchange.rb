@@ -1,8 +1,7 @@
 class Exchange < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :item, optional: true
-  attachment :ask_item_image
-  validates :ask_item_image, presence: true
+  attachment :ask_item_image_id
 
 
   # after_commit do

@@ -3,8 +3,8 @@ class User::ExchangesController < ApplicationController
     @exchange = Exchange.find(params[:id])
     @item = @exchange.item
     # binding.pry
-    @user = @exchange.user
-    # @user = @exchange.item.user
+    #@user = @exchange.user
+    @user = @exchange.item.user
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry = Entry.where(user_id: @user.id)
     unless @user.id == current_user.id
@@ -25,20 +25,27 @@ class User::ExchangesController < ApplicationController
   end
 
   def update
-    @exchange = current_user.exchanges.new(exchange_params)
-    @item = Item.find_by(params[:id])
-    if params[:exchange][:ask_item] == "0"
+    # @exchange = current_user.exchanges.new(exchange_params)
+    @exchange = Exchange.find(params[:id])
+    @exchange.status = '交換希望'
+    @item = @exchange.item
+    if params[:ask_item] == "0"
       @ask_item = @item.ask_item1
-    elsif params[:exchange][:ask_item] == "1"
+    elsif params[:ask_item] == "1"
           @ask_item = @item.ask_item2
-    elsif params[:exchange][:ask_item] == "2"
+    elsif params[:ask_item] == "2"
           @ask_item = @item.ask_item3
-    elsif params[:exchange][:ask_item] == "3"
+    elsif params[:ask_item] == "3"
           @ask_item = @item.ask_item4
     else  @ask_item = @item.ask_item5
     end
-    @exchange.save
-    redirect_to exchange_path(@exchange.id)
+    # @exchange.update(ask_item_image_id: exchange_params[:ask_item_image_id])
+    if @exchange.update(exchange_params)
+       redirect_to exchange_path(@exchange.id)
+    else
+       flash.now[:alert] = '求めるグッズ画像の添付をお願いします'
+       render edit
+    end
   end
 
   def new
@@ -53,6 +60,6 @@ class User::ExchangesController < ApplicationController
   private
 
   def exchange_params
-    params.require(:exchange).permit(:item_id, :user_id, :status)
+    params.require(:exchange).permit(:item_id, :user_id, :status, :ask_item_image)
   end
 end

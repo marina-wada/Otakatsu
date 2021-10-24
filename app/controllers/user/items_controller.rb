@@ -7,7 +7,6 @@ class User::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    # binding.pry
     @exchange = @item.exchanges.order(:updated_at, :desc).last
   end
 

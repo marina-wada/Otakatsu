@@ -30,15 +30,19 @@
 
   <div class="row">
     <div class="col-md-6">
-      <div class="col-md-6"><%= @exchange.user.nickname %></div>
+      <div class="col-md-6">
+        <%= @exchange.user.nickname %>
+      </div>
     </div>
-    <div class="col-md-6"><%= attachment_image_tag @item, :image, format: 'jpeg', size: "250x250" %></div>
+    <div class="col-md-6"><%= attachment_image_tag @exchange, :ask_item_image, format: 'jpeg', size: "250x250" %></div>
     <div class="col-md-6">
       <% if @exchange.status == "未交換" %>
       <% elsif @exchange.status == "非承認" %>
       <% else %>
-        <%= @exchange.user.address %><br>
+        <%= @exchange.user.address %>
+        <%= @user.address %><br>
         <%= @exchange.user.name %>
+        <%= @user.name %>
       <% end %>
     </div>
     <% if @item.user == current_user %>
