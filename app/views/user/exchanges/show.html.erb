@@ -1,60 +1,60 @@
 <div class="container">
-  <div class="row">
+  <div class="row mt-sm-5">
     <div class="lead">交換</div>
   </div>
 
-  <div class="row">
+  <div class="row mt-sm-5">
     <div class="col-md-6">
-      <div class="col-md-6"><%= @item.user.nickname %></div>
-    </div>
-    <div class="col-md-6"><%= attachment_image_tag @item, :image, format: 'jpeg', size: "250x250" %></div>
-    <div class="col-md-6">
-      <% if @exchange.status == "未交換" %>
-      <% elsif @exchange.status == "非承認" %>
+      <div class="col-md-5"><%= @item.user.nickname %></div>
+      <div><%= attachment_image_tag @item, :image, format: 'jpeg', size: "200x200" %></div>
+      <div>
+        <% if @exchange.status == "交換希望" %>
+        <% elsif @exchange.status == "非承認" %>
+        <% else %>
+          <%= @item.user.address %><br>
+          <%= @item.user.name %>
+        <% end %>
+      </div>
+      <% if @item.user == current_user %>
+        <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
+          <div class="col-md-6">
+            <%= f.select(:status, f.object.user_status ) %>
+            <%= f.submit "更新", class: "btn btn-success btn-sm" %>
+          </div>
+        <% end %>
       <% else %>
-        <%= @item.user.address %><br>
-        <%= @item.user.name %>
+        <%= @exchange.status %>
       <% end %>
     </div>
-    <% if @item.user == current_user %>
-      <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
-        <div class="col-md-6">
-          <%= f.select(:status, Exchange.statuses.keys) %>
-          <%= f.submit "更新", class: "btn btn-success btn-sm" %>
-        </div>
-      <% end %>
-    <% else %>
-      <%= @exchange.status %>
-    <% end %>
-  </div>
 
-  <div class="row">
     <div class="col-md-6">
       <div class="col-md-6">
         <%= @exchange.user.nickname %>
       </div>
-    </div>
-    <div class="col-md-6"><%= attachment_image_tag @exchange, :ask_item_image, format: 'jpeg', size: "250x250" %></div>
-    <div class="col-md-6">
-      <% if @exchange.status == "未交換" %>
-      <% elsif @exchange.status == "非承認" %>
-      <% else %>
-        <%= @exchange.user.address %>
-        <%= @user.address %><br>
-        <%= @exchange.user.name %>
-        <%= @user.name %>
-      <% end %>
-    </div>
-    <% if @item.user == current_user %>
-    <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
+      <div class="col-md-6"><%= attachment_image_tag @exchange, :ask_item_image, format: 'jpeg', size: "200x200" %></div>
       <div class="col-md-6">
-        <%= f.select(:status, Exchange.statuses.keys) %>
-        <%= f.submit "更新", class: "btn btn-success btn-sm" %>
+        <% if @exchange.status == "交換希望" %>
+        <% elsif @exchange.status == "非承認" %>
+        <% else %>
+          <%= @exchange.user.address %>
+          <%= @user.address %><br>
+          <%= @exchange.user.name %>
+          <%= @user.name %>
+        <% end %>
       </div>
+      <%# binding.irb %>
+      <% if @exchange.not_exchange(current_user) %>
+      <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
+        <div class="col-md-6">
+          
+          <%= f.select(:status, Exchange.statuses.keys) %>
+          <%= f.submit "更新", class: "btn btn-success btn-sm" %>
+        </div>
+        <% end %>
+      <% else %>
+        <%= @exchange.status %>
       <% end %>
-    <% else %>
-      <%= @exchange.status %>
-    <% end %>
+    </div>
   </div>
 
   <div class="row">

@@ -3,7 +3,7 @@ class User::ExchangesController < ApplicationController
     @exchange = Exchange.find(params[:id])
     @item = @exchange.item
     # binding.pry
-    #@user = @exchange.user
+    # @user = @exchange.user
     @user = @exchange.item.user
     @currentUserEntry = Entry.where(user_id: current_user.id)
     @userEntry = Entry.where(user_id: @user.id)
@@ -25,8 +25,8 @@ class User::ExchangesController < ApplicationController
   end
 
   def update
-    # @exchange = current_user.exchanges.new(exchange_params)
     @exchange = Exchange.find(params[:id])
+    @exchange.user = current_user
     @exchange.status = '交換希望'
     @item = @exchange.item
     if params[:ask_item] == "0"
@@ -39,7 +39,6 @@ class User::ExchangesController < ApplicationController
           @ask_item = @item.ask_item4
     else  @ask_item = @item.ask_item5
     end
-    # @exchange.update(ask_item_image_id: exchange_params[:ask_item_image_id])
     if @exchange.update(exchange_params)
        redirect_to exchange_path(@exchange.id)
     else
