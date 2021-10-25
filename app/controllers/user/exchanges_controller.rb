@@ -24,8 +24,9 @@ class User::ExchangesController < ApplicationController
     end
   end
 
-  def update
+  def create
     @exchange = Exchange.find(params[:id])
+    @item = Item.find(params[:item_id])
     @exchange.user = current_user
     @exchange.status = '交換希望'
     @item = @exchange.item
@@ -48,11 +49,11 @@ class User::ExchangesController < ApplicationController
   end
 
   def new
+    @item = Item.find(params[:item_id])
     @exchange = Exchange.new
   end
 
   def edit
-   @item = Item.find(params[:item_id])
    @exchange = Exchange.find(params[:id])
   end
 

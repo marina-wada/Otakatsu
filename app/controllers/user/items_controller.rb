@@ -18,7 +18,7 @@ class User::ItemsController < ApplicationController
 
   def create
     @item = current_user.items.new(item_params)
-    @item.exchanges.build(status: '未交換')
+    @item.status = '未交換'
     if @item.save
        flash[:success] = '出品しました'
        redirect_to items_path
