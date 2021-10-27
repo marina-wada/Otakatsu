@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_25_141506) do
+ActiveRecord::Schema.define(version: 2021_10_27_121015) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -54,12 +54,13 @@ ActiveRecord::Schema.define(version: 2021_10_25_141506) do
 
   create_table "exchanges", force: :cascade do |t|
     t.integer "item_id"
-    t.integer "user_id"
+    t.integer "item_user_id"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "exchanged_id"
-    t.string "ask_item_image_id"
+    t.integer "exchanged_user_id"
+    t.integer "exchanged_item_id"
+    t.integer "item_status"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -79,20 +80,23 @@ ActiveRecord::Schema.define(version: 2021_10_25_141506) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "item_user_id"
     t.string "character"
     t.string "kind"
     t.text "introduction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "genre_id"
-    t.string "image_id"
+    t.string "item_image_id"
     t.string "ask_item1"
     t.string "ask_item2"
     t.string "ask_item3"
     t.string "ask_item4"
     t.string "ask_item5"
     t.integer "item_status"
+    t.integer "exchanged_user_id"
+    t.string "exchanged_image_id"
+    t.integer "exchange_status"
   end
 
   create_table "likes", force: :cascade do |t|

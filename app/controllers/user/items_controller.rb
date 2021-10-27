@@ -11,14 +11,16 @@ class User::ItemsController < ApplicationController
   end
 
   def new
+    @item.user.id = current_user.id = @item_user_id
+    @item.exchanged_user_id = nul
     @item = Item.new
     @genre = Genre.find(params[:genre_id])
-    @exchange = @item.exchanges.build
   end
 
   def create
+    @item.user.id = current_user.id = @item_user_id
     @item = current_user.items.new(item_params)
-    @item.status = '未交換'
+    @item.item_status = '未交換'
     if @item.save
        flash[:success] = '出品しました'
        redirect_to items_path
@@ -40,13 +42,37 @@ class User::ItemsController < ApplicationController
   end
 
   def update
-    @item = Item.find(params[:id])
-    if @item.update(item_params)
-       flash[:success] = '更新が完了しました'
-       redirect_to item_path(@item)
+    if @item.item_user_id == current_user
+       @item = Item.find(params[:id])
+       if @item.update(item_params)
+          flash[:success] = '更新が完了しました'
+          redirect_to item_path(@item)
+       else
+         flash.now[:alert] = '更新に失敗しました'
+         render edit
+       end
     else
-      flash.now[:alert] = '更新に失敗しました'
-      render edit
+       @item.update
+       @item.exchange_status = '交換希望'
+       @exchange = Exchange.new
+       @exchange.item_id = @item.id
+       @item.ask_item = @ask_item
+       if params[:ask_item] == "0"
+          @ask_item = @item.ask_item1
+       elsif params[:ask_item] == "1"
+             @ask_item = @item.ask_item2
+       elsif params[:ask_item] == "2"
+             @ask_item = @item.ask_item3
+       elsif params[:ask_item] == "3"
+             @ask_item = @item.ask_item4
+       else  @ask_item = @item.ask_item5
+       end
+      @exchange.exchanged_item_id = @ask_item
+      @exchange.item_user_id = @item.item_user_id
+      @exchange.exchanged_user_id = @item.exchanged_user_id
+      @exchange.item_status = @item.item_status
+      @exchange.exchanged_status = @item.exchange_status
+      @exchange.save
     end
   end
 

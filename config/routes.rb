@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :genres, only: [:new, :create, :edit, :update]
     resources :inquiries, only: [:index, :new, :create]
     post 'inquiries/confirm'
-    post 'inquiries/complete'
+    post 'inquiries/thanks'
     resources :items, only: [:index, :show, :create, :destroy, :edit, :update] do
       resource :likes, only: [:create, :destroy]
       resource :reports, only: [:create]
