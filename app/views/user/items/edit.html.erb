@@ -55,10 +55,15 @@
         </div>
       </div>
 
-      <div class="action mt-3">
-        <%#= f.hidden_field :genre_id, :value => @genre.id %>
-        <%= f.submit "更新", class: "btn btn-primary btn-sm" %>
+      <div class="form-group row">
+        <div class="col-xs-8 col-sm-8 col-md-8 action mt-3">
+          <%= f.submit "更新", class: "btn btn-primary btn-sm" %>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 mt-3">
+          <%= link_to "削除", item_path(@item), method: :delete, data: { confirm: "グッズを削除してよろしいでしょうか？" }, class: "btn btn-danger btn-sm" %>
+        </div>
       </div>
+
     <% end %>
   </div>
 </div>
