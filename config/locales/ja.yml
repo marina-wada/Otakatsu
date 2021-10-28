@@ -8,7 +8,7 @@ ja:
         postal_code: 郵便番号
         address: 住所
       item:
-        image: グッズ画像
+        item_image: グッズ画像
         character: キャラクター名
         ask_item1: 求めるグッズ
     errors:

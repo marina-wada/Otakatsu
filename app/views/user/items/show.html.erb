@@ -5,12 +5,12 @@
 
   <div class="row">
     <div class="mt-sm-5 text-xs-left">
-      <%= @item.user.nickname %>のグッズ
+      <%= @item.item_user.nickname %>のグッズ
     </div>
   </div>
   <div class="row">
     <div class="col-xs-8 col-sm-9 col-md-4 text-md-center mt-xs-5 mt-sm-5">
-      <%= attachment_image_tag @item, :image, format: 'jpeg', size: "250x250" %>
+      <%= attachment_image_tag @item, :item_image, format: 'jpeg', size: "250x250" %>
     </div>
 
     <div class="col">
@@ -30,7 +30,7 @@
         </div>
 
         <div class="col-xs-2 col-sm-4 col-md-3 mt-sm-1 mt-md-5">
-          <% if @item.user != current_user %>
+          <% if @item.item_user != current_user %>
             <%= link_to item_reports_path(@item.id), method: :post, data: { confirm: "この商品を通報してもよろしいでしょうか？" } do %>
               <button type="button" class="btn btn-secondary btn-sm">通報する</button>
             <% end %>
@@ -80,34 +80,34 @@
           </div>
         </div>
       </div>
-       <% if @item.user != current_user %>
+       <% if @item.item_user != current_user %>
 
       <div class="col-md-12 mt-md-5 mt-sm-2">
-        <% if @exchange.status == '未交換' %>
+        <% if @item.item_status == '未交換' %>
           <%= link_to "交換申し込みページへ", new_exchange_path(item_id: @item.id, id: @exchange.id), class: "btn btn-success" %>
-        <% elsif @exchange.status == "交換希望" %>
+        <% elsif @item.item_status == "承認" %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @exchange.status == "承認" %>
-          <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @exchange.status == "非承認" %>
+        <% elsif @item.item_status == "非承認" %>
           <%= link_to "交換申し込みページへ", new_exchange_path(item_id: @item.id, id: @exchange.id), class: "btn btn-success" %>
-        <% elsif @exchange.status == "配送準備" %>
+        <% elsif @item.item_status == "配送準備" %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @exchange.status == "配送済" %>
+        <% elsif @item.item_status == "配送済" %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @exchange.status == "受取済" %>
+        <% elsif @item.item_status == "受取済" %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @exchange.status == "交換グッズ確認" %>
+        <% elsif @item.item_status == "交換グッズ確認" %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @exchange.status == "グッズ状態NG" %>
+        <% elsif @item.item_status == "グッズ状態NG" %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @exchange.status == "交換済" %>
+        <% elsif @item.item_status == "交換済" %>
           <p class="text-success">交換済みです。申し込みはできません</p>
-        <% elsif @exchange.status == "返品" %>
+        <% elsif @item.item_status == "交換終了" %>
+          <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
+        <% else %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
         <% end %>
       </div>
-      <%else%>
+      <% else %>
       <div class="col-md-12 mt-md-5 mt-sm-2">
         <%= link_to "編集する", edit_item_path(current_user), class: "btn btn-info btn-sm" %>
       </div>

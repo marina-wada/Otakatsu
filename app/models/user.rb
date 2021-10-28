@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :likes, dependent: :destroy
-  has_many :items, dependent: :destroy
+  has_many :items, dependent: :destroy, class_name: 'Item', foreign_key: 'item_user_id'
+  has_many :ask_items, class_name: 'Item', foreign_key: 'exchanged_user_id'
   has_many :genres, through: :items
   has_many :exchanges, dependent: :destroy
   has_many :entries, dependent: :destroy

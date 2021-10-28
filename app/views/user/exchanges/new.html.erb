@@ -33,7 +33,7 @@
           </p>
         </div>
       </div>
-      <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
+      <%= form_with model: @item, url: exchange_path(@exchange), local: true do |f| %>
         <div class="col-xs-12 col-sm-12 col-md-12 mt-md-3">
           <span><求めるグッズ></span><br>
           <%= radio_button_tag :ask_item, 0, checked: true %><%= @item.ask_item1 %>

@@ -7,19 +7,19 @@ class User::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @exchange = @item.exchanges.order(:updated_at, :desc).last
+    @item = Item.order(:updated_at, :desc).last
   end
 
   def new
-    @item.user.id = current_user.id = @item_user_id
-    @item.exchanged_user_id = nul
     @item = Item.new
+    @item.item_user_id = current_user.id
+    @item.exchanged_user_id = nil
     @genre = Genre.find(params[:genre_id])
   end
 
   def create
-    @item.user.id = current_user.id = @item_user_id
     @item = current_user.items.new(item_params)
+    @item.item_user_id = current_user.id
     @item.item_status = '未交換'
     if @item.save
        flash[:success] = '出品しました'
@@ -42,7 +42,8 @@ class User::ItemsController < ApplicationController
   end
 
   def update
-    if @item.item_user_id == current_user
+    @item = @item.item_user(item_params)
+    if @item.item_user_id = current_user.id
        @item = Item.find(params[:id])
        if @item.update(item_params)
           flash[:success] = '更新が完了しました'
@@ -86,7 +87,7 @@ class User::ItemsController < ApplicationController
 
   private
   def item_params
-    params.require(:item).permit(:ask_item1, :ask_item2, :ask_item3, :ask_item4, :ask_item5, :character, :kind, :introduction, :genre_id, :image)
+    params.require(:item).permit(:ask_item1, :ask_item2, :ask_item3, :ask_item4, :ask_item5, :character, :kind, :introduction, :genre_id, :item_image)
   end
 end
 
