@@ -1,22 +1,22 @@
 class User::ReportsController < ApplicationController
   def create
     @item = Item.find(params[:item_id])
-    report_count = Report.where(reported_id: @item.user_id).count
-    @report = Report.new(reporter_id: current_user.id, reported_id: @item.user_id, amount: report_count+1)
+    report_count = Report.where(reported_id: @item.item_user_id).count
+    @report = Report.new(reporter_id: current_user.id, reported_id: @item.item_user_id, amount: report_count+1)
     if @report.save
       if @report.amount > 10
-        @item.user.update(is_active: "退会済")
-        @item.user.likes.destroy_all
-        @item.user.items.destroy_all
-        @item.user.genres.destroy_all
-        @item.user.exchanges.destroy_all
-        @item.user.entries.destroy_all
-        @item.user.messages.destroy_all
-        @item.user.inquiries.destroy_all
-        @item.user.reports.destroy_all
-        @item.user.had_reports.destroy_all
-        @item.user.active_notifications.destroy_all
-        @item.user.passive_notifications.destroy_all
+        @item.item_user.update(is_active: "退会済")
+        @item.item_user.likes.destroy_all
+        @item.item_user.items.destroy_all
+        @item.item_user.genres.destroy_all
+        @item.item_user.exchanges.destroy_all
+        @item.item_user.entries.destroy_all
+        @item.item_user.messages.destroy_all
+        @item.item_user.inquiries.destroy_all
+        @item.item_user.reports.destroy_all
+        @item.item_user.had_reports.destroy_all
+        @item.item_user.active_notifications.destroy_all
+        @item.item_user.passive_notifications.destroy_all
         redirect_to root_path and return
       end
       flash.now[:notice] = "通報しました"

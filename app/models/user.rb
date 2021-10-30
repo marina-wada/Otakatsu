@@ -30,8 +30,7 @@ class User < ApplicationRecord
     super && self.is_active == '有効'
   end
 
-  def exchanged_by? item
-    self.exchanges.exists?(item_id: item.id)
+  def item_by?(item)
+    self.items.exists?(id: item.id)
   end
-
 end

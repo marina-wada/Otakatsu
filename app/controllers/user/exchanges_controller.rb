@@ -1,12 +1,9 @@
 class User::ExchangesController < ApplicationController
   def show
-    @exchange = Exchange.find(params[:id])
-    @item = @exchange.item
-    # binding.pry
-    # @user = @exchange.user
-    @user = @exchange.item.user
-    @currentUserEntry = Entry.where(user_id: current_user.id)
-    @userEntry = Entry.where(user_id: @user.id)
+    @item = Item.find(params[:id])
+    @user = @item.item_user
+    @currentUserEntry = current_user.entries
+    @userEntry = @user.entries
     unless @user.id == current_user.id
       @currentUserEntry.each do |cu|
         @userEntry.each do |u|
@@ -24,37 +21,8 @@ class User::ExchangesController < ApplicationController
     end
   end
 
-  # def create
-  #   @exchange = Exchange.find(params[:id])
-  #   @item = Item.find(params[:item_id])
-  #   @exchange.user = current_user
-  #   @exchange.status = '交換希望'
-  #   @item = @exchange.item
-  #   if params[:ask_item] == "0"
-  #     @ask_item = @item.ask_item1
-  #   elsif params[:ask_item] == "1"
-  #         @ask_item = @item.ask_item2
-  #   elsif params[:ask_item] == "2"
-  #         @ask_item = @item.ask_item3
-  #   elsif params[:ask_item] == "3"
-  #         @ask_item = @item.ask_item4
-  #   else  @ask_item = @item.ask_item5
-  #   end
-  #   if @exchange.update(exchange_params)
-  #     redirect_to exchange_path(@exchange.id)
-  #   else
-  #     flash.now[:alert] = '求めるグッズ画像の添付をお願いします'
-  #     render edit
-  #   end
-  # end
-
-  # def new
-  #   @item = Item.find(params[:item_id])
-  #   @exchange = Exchange.new
-  # end
-
-  # def edit
-  # @exchange = Exchange.find(params[:id])
-  # end
+  def new
+    @item = Item.find(params[:item_id])
+  end
 
 end

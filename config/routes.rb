@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   scope module: :user do
     root 'homes#top'
-    resources :exchanges, only: [:index, :show, :edit, :update, :new, :create]
+    resources :exchanges, only: [:index, :show, :new]
     resources :genres, only: [:new, :create, :edit, :update]
     resources :inquiries, only: [:index, :new, :create]
     post 'inquiries/confirm'

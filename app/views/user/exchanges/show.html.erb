@@ -5,70 +5,70 @@
 
   <div class="row mt-sm-5">
     <div class="col-md-6">
-      <div class="col-md-5"><%= @item.user.nickname %></div>
-      <div><%= attachment_image_tag @item, :image, format: 'jpeg', size: "200x200" %></div>
+      <div class="col-md-5"><%= @item.item_user.nickname %></div>
+      <div><%= attachment_image_tag @item, :item_image, format: 'jpeg', size: "200x200" %></div>
       <div>
-        <% if @exchange.status == "交換希望" %>
-        <% elsif @exchange.status == "非承認" %>
+        <% if @item.item_status == "未交換" %>
+        <% elsif @item.item_status == "非承認" %>
         <% else %>
-          <%= @item.user.address %><br>
-          <%= @item.user.name %>
+          <%= @item.item_user.address %><br>
+          <%= @item.item_user.name %>
         <% end %>
       </div>
-      <% if @item.user == current_user %>
-        <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
+      <% if @item.item_user == current_user %>
+        <%= form_with model: @item, url: item_path(@item), local: true do |f| %>
           <div class="col-md-6">
-            <%= f.select(:status, f.object.user_status ) %>
+            <%= f.select(:item_status, @item.select_item_status) %>
             <%= f.submit "更新", class: "btn btn-success btn-sm" %>
           </div>
         <% end %>
       <% else %>
-        <%= @exchange.status %>
+        <p>交換ステータス：<%= @item.item_status %></p>
       <% end %>
     </div>
 
     <div class="col-md-6">
       <div class="col-md-6">
-        <%= @exchange.user.nickname %>
+        <%= @item.exchanged_user.nickname %>
       </div>
-      <div class="col-md-6"><%= attachment_image_tag @exchange, :ask_item_image, format: 'jpeg', size: "200x200" %></div>
+      <div class="col-md-6"><%= attachment_image_tag @item, :exchanged_image, format: 'jpeg', size: "200x200" %></div>
       <div class="col-md-6">
-        <% if @exchange.status == "交換希望" %>
-        <% elsif @exchange.status == "非承認" %>
+        <% if @item.item_status == "未交換" %>
+        <% elsif @item.item_status == "非承認" %>
         <% else %>
-          <%= @exchange.user.address %>
-          <%= @user.address %><br>
-          <%= @exchange.user.name %>
-          <%= @user.name %>
+          <%= @item.exchanged_user.address %><br>
+          <%= @item.exchanged_user.name %>
         <% end %>
       </div>
-      <%# binding.irb %>
-      <% if @exchange.not_exchange(current_user) %>
-      <%= form_with model: @exchange, url: exchange_path(@exchange), local: true do |f| %>
+      <% if @item.exchanged_user == current_user %>
+      <%= form_with model: @item, url: item_path(@item), local: true do |f| %>
         <div class="col-md-6">
-          
-          <%= f.select(:status, Exchange.statuses.keys) %>
+          <%= f.select(:exchange_status, elect_exchnage_status) %>
           <%= f.submit "更新", class: "btn btn-success btn-sm" %>
         </div>
         <% end %>
       <% else %>
-        <%= @exchange.status %>
+        <p>交換ステータス：<%= @item.exchange_status %></p>
       <% end %>
     </div>
   </div>
 
   <div class="row">
-    <% if (current_user.exchanged_by? @exchange.item) && (@exchange.status == "承認") %>
-      <% if @isRoom == true %>
-        <p class="exchange-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary">メッセージを送る</a></p>
-      <% else %>
-        <%= form_with model: @room, local: true do |f| %>
-          <%= fields_for @entry do |e| %>
-            <%= e.hidden_field :user_id, value: @user.id %>
+    <% if @item.exchange_status == "交換希望" || @item.exchange_status == '配送準備' || @item.exchange_status == '配送済' || @item.exchange_status == '受取済' || @item.exchange_status == 'グッズ状態ＮＧ' || @item.exchange_status == '交換済' || @item.exchange_status == '交換終了' || @item.exchange_status == '返品'
+        if current_user.item_by?(@item) || @item.exchanged_user == current_user %>
+          <% if @isRoom == true %>
+            <p class="exchange-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary">メッセージを送る</a></p>
+          <% else %>
+              <%= form_with model: @room, local: true do |f| %>
+                <%= fields_for @entry do |e| %>
+                  <%= f.hidden_field :user_id, value: @user.id %>
+                <% end %>
+                <div class="col-md-10 mt-5 text-center">
+                  <%= f.submit "メッセージを送る", class: "btn btn-primary exchange-show-chat" %>
+                </div>
+              <% end %>
           <% end %>
-          <%= f.submit "メッセージを送る", class: "btn btn-primary exchange-show-chat" %>
         <% end %>
-      <% end %>
     <% end %>
   </div>
 </div>
