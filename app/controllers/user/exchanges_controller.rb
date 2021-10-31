@@ -19,8 +19,8 @@ class User::ExchangesController < ApplicationController
         @entry = Entry.new
       end
     else
-      @room_id = Entry.where(item_id: @item).pluck(:room_id)
-      @isRoom = true
+      #@room_id = Entry.where(item_id: @item).pluck(:room_id)
+      #@isRoom = true
       entry1 = Entry.where(user_id: current_user)
       entry2 = Entry.where(user_id: @item.exchanged_user)
       entry1.each do |e1|
