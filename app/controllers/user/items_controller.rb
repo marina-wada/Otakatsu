@@ -43,7 +43,6 @@ class User::ItemsController < ApplicationController
   end
 
   def update
-    @select_item_status = Item.item_statuses.select{ |k,v| k == '承認' || k == '非承認'}
     @item = Item.find(params[:id])
     if @item.item_user_id == current_user.id
        if @item.update(item_params)
@@ -55,35 +54,50 @@ class User::ItemsController < ApplicationController
        end
     else
        @item.exchanged_user_id = current_user.id
-       @item.exchange_status = '交換希望'
-       if @item.update(item_params)
-          flash[:success] = '交換を申し込みました'
-          @exchange = @item.exchanges.find_by(item_user_id: @item.item_user, exchanged_user_id: current_user.id)
-          if @exchange.present?
-             @exchange = Exchange.new
-          end
-          @exchange.item_id = @item.id
-        # @item.ask_item = @ask_item
-          if params[:ask_item] == "0"
-             @ask_item = @item.ask_item1
-          elsif params[:ask_item] == "1"
-                @ask_item = @item.ask_item2
-          elsif params[:ask_item] == "2"
-                @ask_item = @item.ask_item3
-          elsif params[:ask_item] == "3"
-                @ask_item = @item.ask_item4
-          else  @ask_item = @item.ask_item5
-          end
-          @exchange.exchanged_item_id = @ask_item
-          @exchange.item_user_id = @item.item_user_id
-          @exchange.exchanged_user_id = @item.exchanged_user_id
-          # @exchange.item_status = @item.item_status
-          @exchange.exchanged_status = @item.exchange_status
-          @exchange.save
-          redirect_to exchange_path(@item.id)
+       if @item.exchange_status = '交換希望'
+         if @item.update(item_params)
+            flash[:success] = '交換を申し込みました'
+            @exchange = @item.exchanges.find_by(item_user_id: @item.item_user, exchanged_user_id: current_user.id)
+            if @exchange == nil or @exchange.present?
+               @exchange = Exchange.new
+            end
+            @exchange.item_id = @item.id
+            if params[:ask_item] == "0"
+               @ask_item = @item.ask_item1
+            elsif params[:ask_item] == "1"
+                  @ask_item = @item.ask_item2
+            elsif params[:ask_item] == "2"
+                  @ask_item = @item.ask_item3
+            elsif params[:ask_item] == "3"
+                  @ask_item = @item.ask_item4
+            else  @ask_item = @item.ask_item5
+            end
+            @exchange.exchanged_item_id = @ask_item
+            @exchange.item_user_id = @item.item_user_id
+            @exchange.exchanged_user_id = @item.exchanged_user_id
+            # @exchange.item_status = @item.item_status
+            @exchange.exchanged_status = @item.exchange_status
+            @exchange.save
+            redirect_to exchange_path(@item.id)
+         else
+           flash.now[:alert] = '交換対象のグッズを添付してください'
+           render partial: "exchanges/new"
+         end
        else
-         flash.now[:alert] = '交換対象のグッズを添付してください'
-         render partial: "exchanges/new"
+         @item.update(item_params)
+         flash[:success] = '更新が完了しました'
+         @exchange = @item.exchanges.find_by(item_user_id: @item.item_user, exchanged_user_id: current_user.id)
+         if @exchange.present?
+            @exchange = Exchange.new
+         end
+         @exchange.item_id = @item.id
+         @exchange.exchanged_item_id = @ask_item
+         @exchange.item_user_id = @item.item_user_id
+         @exchange.exchanged_user_id = @item.exchanged_user_id
+         @exchange.item_status = @item.item_status
+         @exchange.exchanged_status = @item.exchange_status
+         @exchange.save
+         redirect_to exchange_path(@item.id)
        end
     end
   end

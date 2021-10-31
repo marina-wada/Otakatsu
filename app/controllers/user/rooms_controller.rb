@@ -5,6 +5,7 @@ class User::RoomsController < ApplicationController
     @room = Room.create
     @entry1 = Entry.create(room_id: @room.id, user_id: current_user.id)
     @entry2 = Entry.create(params.require(:entry).permit(:user_id, :room_id).merge(room_id: @room.id))
+    #@entry2 = Entry.create(params.permit(:user_id, :room_id).merge(room_id: @room.id))
     redirect_to room_path(@room.id)
   end
 
@@ -15,7 +16,7 @@ class User::RoomsController < ApplicationController
       @message = Message.new
       @entries = @room.entries
     else
-      redirect_back(fallback_location: item_path(@item))
+      redirect_back(fallback_location: exchange_path(@item.id))
     end
   end
 end
