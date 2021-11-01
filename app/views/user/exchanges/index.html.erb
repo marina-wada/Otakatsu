@@ -1,9 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col">
-      <% @items.each do |item| %>
-        <%
-      <% end %>
-    </div>
+    <div class="lead">交換一覧</div>
+  </div>
+  <div class="row">
+    <% @items.each do |item| %>
+      <div class="col-md-3">
+        <%= @ask_item %>
+      </div>
+    <% end %>
   </div>
 </div>

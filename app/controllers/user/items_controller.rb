@@ -7,7 +7,7 @@ class User::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
-    @item = Item.order(:updated_at, :desc).last
+    # @item = Item.item_status.order(:updated_at, :desc).last
   end
 
   def new
@@ -72,10 +72,10 @@ class User::ItemsController < ApplicationController
                   @ask_item = @item.ask_item4
             else  @ask_item = @item.ask_item5
             end
-            @exchange.exchanged_item_id = @ask_item
+            @ask_item = @item.exchanged_item_id
+            @exchange.exchanged_item_id = @item.exchanged_item_id
             @exchange.item_user_id = @item.item_user_id
             @exchange.exchanged_user_id = @item.exchanged_user_id
-            # @exchange.item_status = @item.item_status
             @exchange.exchanged_status = @item.exchange_status
             @exchange.save
             redirect_to exchange_path(@item.id)
@@ -90,10 +90,10 @@ class User::ItemsController < ApplicationController
          if @exchange.present?
             @exchange = Exchange.new
          end
-         @exchange.item_id = @item.id
-         @exchange.exchanged_item_id = @ask_item
-         @exchange.item_user_id = @item.item_user_id
-         @exchange.exchanged_user_id = @item.exchanged_user_id
+        #  @exchange.item_id = @item.id
+        #  @exchange.exchanged_item_id = @ask_item
+        #  @exchange.item_user_id = @item.item_user_id
+        #  @exchange.exchanged_user_id = @item.exchanged_user_id
          @exchange.item_status = @item.item_status
          @exchange.exchanged_status = @item.exchange_status
          @exchange.save

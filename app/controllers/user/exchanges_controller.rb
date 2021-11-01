@@ -31,12 +31,16 @@ class User::ExchangesController < ApplicationController
           end
         end
       end
-
     end
   end
 
   def new
     @item = Item.find(params[:item_id])
+  end
+
+  def index
+    @items = current_user.items
+    # @exchanges = current_user.items
   end
 
 end
