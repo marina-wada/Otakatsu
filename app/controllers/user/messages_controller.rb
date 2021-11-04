@@ -7,6 +7,8 @@ class User::MessagesController < ApplicationController
     else
       flash[:alert] = "メッセージ送信に失敗しました。"
     end
+    @message_user = @message.user
+    @message_user.create_notification_message!(current_user, @message.id)
     redirect_to room_path(@message.room_id)
   end
 end

@@ -4,6 +4,8 @@ class Item < ApplicationRecord
   has_many :exchanges, dependent: :destroy
   belongs_to :genre
   has_many :likes, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+
   attachment :item_image
   attachment :exchanged_image
 
@@ -19,33 +21,37 @@ class Item < ApplicationRecord
   end
 
   def select_item_status
-    if exchange_status == '交換希望'
-       Item.item_statuses.select{ |k,v| k == '承認' || k == '非承認'}
+    if exchange_status == '交換希望' && item_status == '未交換'
+      Item.item_statuses.select{ |k,v| k == '承認' || k == '非承認'}
     elsif item_status == '承認'
-      　　Item.item_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
+      Item.item_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
     elsif item_status == '配送済'
-      　　Item.item_statuses.select{ |k,v| k == '受取済' || k == 'グッズ状態ＮＧ'}
+      Item.item_statuses.select{ |k,v| k == '受取済' || k == 'グッズ状態ＮＧ'}
     elsif item_status == 'グッズ状態ＮＧ'
-      　　Item.item_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
+      Item.item_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
     elsif exchange_status == 'グッズ状態ＮＧ'
-          Item.item_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
+      Item.item_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
     else
-       Item.item_statuses
+      Item.item_statuses
     end
   end
 
   def select_exchanage_status
     if item_status == '承認'
-      　　Item.exchange_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
+      Item.exchange_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
     elsif exchange_status == '配送済'
-      　　Item.exchange_statuses.select{ |k,v| k == '受取済' || k == 'グッズ状態ＮＧ'}
+      Item.exchange_statuses.select{ |k,v| k == '受取済' || k == 'グッズ状態ＮＧ'}
     elsif exchange_status == 'グッズ状態ＮＧ'
-      　　Item.exchange_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
+      Item.exchange_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
     elsif item_status == 'グッズ状態ＮＧ'
-          Item.exchange_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
+      Item.exchange_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
     else
-       Item.exchange_statuses
+      Item.exchange_statuses
     end
   end
 
+  def create_notification_by(current_user)
+    notification = current_user.active_notifications.new(item_id: exchanged_item_id, visited_id: user_id, action: "like")
+    notification.save if notification.valid?
+  end
 end

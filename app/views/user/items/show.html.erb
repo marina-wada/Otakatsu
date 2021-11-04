@@ -83,35 +83,25 @@
        <% if @item.item_user != current_user %>
 
       <div class="col-md-12 mt-md-5 mt-sm-2">
-        <% if @item.item_status == '未交換' %>
+        <% if @item.item_status == '未交換' || @item.item_status == "非承認" %>
           <%= link_to "交換申し込みページへ", new_exchange_path(item_id: @item.id), class: "btn btn-success" %>
-        <% elsif @item.item_status == "承認" %>
+        <% elsif @item.item_status == "承認" || @item.item_status == "配送準備" || @item.item_status == "配送済" || @item.item_status == "配送済" || @item.item_status == "受取済" || @item.item_status == "交換グッズ確認" || @item.item_status == "グッズ状態NG" %>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @item.item_status == "非承認" %>
-          <%= link_to "交換申し込みページへ", new_exchange_path(item_id: @item.id), class: "btn btn-success" %>
-        <% elsif @item.item_status == "配送準備" %>
-          <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @item.item_status == "配送済" %>
-          <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @item.item_status == "受取済" %>
-          <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @item.item_status == "交換グッズ確認" %>
-          <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @item.item_status == "グッズ状態NG" %>
-          <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% elsif @item.item_status == "交換済" %>
+        <% elsif @item.item_status == "交換済" || @item.item_status == "交換終了" %>
           <p class="text-success">交換済みです。申し込みはできません</p>
-        <% elsif @item.item_status == "交換終了" %>
-          <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
-        <% else %>
+        <% elsif @item.item_status == '未交換' && @item.exchange_status == '交換希望'%>
           <p class="text-danger">現在交換手続き中のため、申し込みはできません</p>
         <% end %>
       </div>
       <% else %>
       <div class="col-md-12 mt-md-5 mt-sm-2">
-        <%= link_to "編集する", edit_item_path(current_user), class: "btn btn-info btn-sm" %>
+        <% if @item.item_status == '未交換' || @item.item_status == "非承認" %>
+          <%= link_to "編集する", edit_item_path(current_user), class: "btn btn-info btn-sm" %>
+        <% elsif @item.item_status == "承認" || @item.item_status == "配送準備" || @item.item_status == "配送済" || @item.item_status == "配送済" || @item.item_status == "受取済" || @item.item_status == "交換グッズ確認" || @item.item_status == "グッズ状態NG" %>
+          <%= link_to "交換詳細ページへ", exchange_path(@item.id), class: "btn btn-info btn-sm" %>
+        <% end %>
       </div>
-      <%end%>
+      <% end %>
     </div>
   </div>
 </div>

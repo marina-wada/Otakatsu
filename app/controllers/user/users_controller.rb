@@ -1,10 +1,13 @@
 class User::UsersController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     @user = current_user
   end
 
   def edit
     @user = User.find(params[:id])
+    redirect_to root_path unless current_user.id == @user.id
   end
 
   def update

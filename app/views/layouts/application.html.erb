@@ -37,8 +37,11 @@
                 <li class="nav-item">
                   <%= link_to "お問い合わせ", admin_inquiries_path, class: "nav-link text-dark" %>
                 </li>
+                <% if unchecked_notifications.any? %>
+                  <i class="fa fa-circle", style="color: red;"></i>
+                <% end %>
                 <li class="nav-item">
-                  <%= link_to "通報", admin_reports_path, class: "nav-link text-dark" %>
+                  <%= link_to "通知", notifications_path, class: "nav-link text-dark" %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "ユーザー", admin_users_path, class: "nav-link text-dark" %>

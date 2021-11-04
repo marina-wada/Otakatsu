@@ -1,4 +1,6 @@
 class User::ExchangesController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     @item = Item.find(params[:id])
     @user = @item.item_user
@@ -39,8 +41,7 @@ class User::ExchangesController < ApplicationController
   end
 
   def index
-    @items = current_user.items
-    # @exchanges = current_user.items
+    @items = Item.where(exchanged_user_id: current_user)
   end
 
 end

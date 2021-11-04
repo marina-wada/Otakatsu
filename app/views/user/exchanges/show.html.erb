@@ -18,7 +18,7 @@
       <% if @item.item_user == current_user %>
         <%= form_with model: @item, url: item_path(@item), local: true do |f| %>
           <div class="col-xs-8 col-sm-6 mt-3">
-            <%= f.select(:item_status, @item.select_item_status) %>
+            <%= f.select(:item_status, @item.select_item_status.keys.map {|k| k}) %>
             <%= f.submit "更新", class: "btn btn-success btn-sm" %>
           </div>
         <% end %>
@@ -48,7 +48,7 @@
         <% else %>
           <%= form_with model: @item, url: item_path(@item), local: true do |f| %>
             <div class="col-xs-8 col-sm-6">
-              <%= f.select(:exchange_status, @item.select_exchanage_status) %>
+              <%= f.select(:exchange_status, @item.select_exchanage_status.keys) %>
               <%= f.submit "更新", class: "btn btn-success btn-sm" %>
             </div>
           <% end %>
