@@ -29,7 +29,11 @@ Rails.application.routes.draw do
     end
     get 'genres/:genre_id/items/new', to:'items#new', as:'new_item'
     resources :messages, only: [:create]
-    resources :notifications, only: [:index]
+    resources :notifications, only: [:index] do
+      collection do
+        delete 'destroy_all'
+      end
+    end
     resources :rooms, only: [:create, :show]
     resources :users, only: [:show, :edit, :update] do
       member do

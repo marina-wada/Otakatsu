@@ -4,7 +4,7 @@
   </div>
 
   <div class="row">
-    <% @exchanges.each do |each| %>
+
       <table class="table">
         <thead class="mt-sm-5">
           <tr>
@@ -13,21 +13,22 @@
             <th colspan="2">求</th>
           </tr>
         </thead>
+        <% @exchanges.each do |exchange| %>
         <tbody>
           <tr>
             <td><%= exchange.created_at.strftime('%Y/%m/%d %-H:%-M:%-S') %></td>
             <td>
-              <%= link_to admin_user_path(@user) do %>
-                <%= exchange.user.name %>
+              <%= link_to admin_user_path(exchange) do %>
+                <%= exchange.item_user.name %>
               <% end %>
             </td>
             <td><%= exchange.item.character %></td>
             <td>
-              <%= link_to admin_user_path(@user) do %>
-                <%= exchanged.user.name %>
+              <%= link_to admin_user_path(exchange) do %>
+                <%= exchanged.exchanged_user.name %>
               <% end %>
             </td>
-            <td><%= exchange.item.ask_item %></td>
+            <td><%= exchange.exchanged_item %></td>
           </tr>
         </tbody>
       </table>

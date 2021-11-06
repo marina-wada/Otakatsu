@@ -17,7 +17,7 @@ class Item < ApplicationRecord
    enum exchange_status: { 交換希望: 0, 配送準備: 1, 配送済: 2, 受取済: 3, グッズ状態ＮＧ: 4, 交換済: 5, 交換終了: 6, 返品: 7 }, _prefix: true
 
   def liked_by?(user)
-    likes.where(user_id: item_user.id).exists?
+    likes.where(user_id: user.id).exists?
   end
 
   def select_item_status
@@ -51,7 +51,23 @@ class Item < ApplicationRecord
   end
 
   def create_notification_by(current_user)
-    notification = current_user.active_notifications.new(item_id: exchanged_item_id, visited_id: user_id, action: "like")
+    notification = current_user.active_notifications.new(visited_id: item_user_id, action: "like", item_id: self.id)
     notification.save if notification.valid?
   end
+
+  def create_exchange_notification_by(current_user)
+    notification = current_user.active_notifications.new(visited_id: item_user_id, action: "exchange", item_id: self.id)
+    notification.save if notification.valid?
+  end
+
+  def create_item_status_notification_by(current_user)
+    notification = current_user.active_notifications.new(visited_id: exchange_user_id, action: "status", item_id: self.id)
+    notification.save if notification.valid?
+  end
+  
+  def create_exchange_status_notification_by(current_user)
+    notification = current_user.active_notifications.new(visited_id: item_user_id, action: "status", item_id: self.id)
+    notification.save if notification.valid?
+  end
+
 end

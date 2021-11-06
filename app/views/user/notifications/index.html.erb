@@ -2,19 +2,19 @@
   <div class="row">
     <div class="lead mt-5">通知</div>
   </div>
-  
+
   <div class="row">
-    <div class="col text-left">
-      <%= link_to destroy_all_users_notifications_path, class: "link", method: :delete do %>
+    <div class="col text-left mt-5">
+      <%= link_to destroy_all_notifications_path, class: "link", method: :delete do %>
         <i class="fas fa-trash" style="color: black;"></i>
         <h7>全削除</h7>
       <% end %>
     </div>
   </div>
-  
-  <div class="row">
+
+  <div class="row mt-2 ml-2">
     <% if @notifications.exists? %>
-      <div class="users-index">
+      <div class="users-index mb-1">
         <%= render @notifications %>
       </div>
     <% else %>

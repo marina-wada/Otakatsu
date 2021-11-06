@@ -34,20 +34,33 @@ class User < ApplicationRecord
     self.items.exists?(id: item.id)
   end
 
-  def create_notification_message!(current_user, message_id)
-    temp_ids = Message.select(:user_id).where(user_id: id).where.not(user_id: current_user.id).distinct
-    temp_ids.each do |temp_id|
-      save_notification_message!(current_user, message_id, temp_id['user_id'])
-    end
-    save_notification_message!(current_user, message_id, user_id) if temp_ids.blank?
+  def notice_to_receive_message(send_user, message)
+    notification = Notification.new(
+      visitor_id: send_user.id,
+      visited_id: self.id,
+      action: "message",
+      message_id: message.id
+    )
+    notification.save
   end
 
-  def save_notification_message!(current_user, message_id, visited_id)
-    notification = current_user.active_notifications.new(message_id: message_id, visited_id: visited_id, action: 'message')
-    if notification.visitor_id == notification.visited_id
-      notification.checked = true
-    end
-    notification.save if notification.valid?
-  end
+  # def create_notification_message!(current_user, message_id)
+  #   temp_ids = Message.select(:user_id).where(user_id: id).where.not(user_id: current_user.id).distinct
+  #   temp_ids.each do |temp_id|
+  #     save_notification_message!(current_user, message_id, temp_id['user_id'])
+  #   end
+  #   # save_notification_message!(current_user, message_id, user_id) if temp_ids.blank?
+  #   save_notification_message!(current_user, message_id) if temp_ids.blank?
+  # end
+
+  # # def save_notification_message!(current_user, message_id, visited_id)
+  # def save_notification_message!(current_user, message_id)
+  #   # notification = current_user.active_notifications.new(message_id: message_id, visited_id: visited_id, action: 'message')
+  #   notification = current_user.active_notifications.new(message_id: message_id, action: 'message')
+  #   if notification.visitor_id == notification.visited_id
+  #     notification.checked = true
+  #   end
+  #   notification.save if notification.valid?
+  # end
 
 end
