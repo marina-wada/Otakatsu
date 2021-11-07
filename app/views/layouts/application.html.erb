@@ -16,11 +16,7 @@
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
           <a class="navbar-brand my-1" href="/"><%= image_tag 'logo.jpg', :size =>'200x170' %></a>
-          <%= form_with url: search_items_path, method: :get, local: true do |f| %>
-            <%= f.text_field :character %>
-            <%#f.text_field: kind %>
-            <%= f.submit :search %>
-          <% end %>
+
            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -35,19 +31,15 @@
                   <%= link_to "交換", admin_exchanges_path, class: "nav-link text-dark" %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to "お問い合わせ", admin_inquiries_path, class: "nav-link text-dark" %>
-                </li>
-                <% if unchecked_notifications.any? %>
-                  <i class="fa fa-circle", style="color: red;"></i>
-                <% end %>
-                <li class="nav-item">
-                  <%= link_to "通知", notifications_path, class: "nav-link text-dark" %>
-                </li>
-                <li class="nav-item">
                   <%= link_to "ユーザー", admin_users_path, class: "nav-link text-dark" %>
                 </li>
 
               <% elsif user_signed_in? %>
+                        <%= form_with url: search_items_path, method: :get, local: true do |f| %>
+            <%= f.text_field :character %>
+            <%#f.text_field: kind %>
+            <%= f.submit :search %>
+          <% end %>
                 <li class="nav-item">
                   <%= link_to "出品", new_genre_path, class: "nav-link text-dark" %>
                 </li>
@@ -62,6 +54,11 @@
                 </li>
 
               <% else %>
+                        <%= form_with url: search_items_path, method: :get, local: true do |f| %>
+            <%= f.text_field :character %>
+            <%#f.text_field: kind %>
+            <%= f.submit :search %>
+          <% end %>
                 <li class="nav-item">
                   <%= link_to "ログイン", new_user_session_path, class: "nav-link text-dark" %>
                 </li>

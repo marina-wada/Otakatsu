@@ -3,35 +3,35 @@
     <div class="lead mt-sm-5">交換一覧</div>
   </div>
 
-  <div class="row">
+  <div class="row mt-5">
+    <table class="table">
+      <thead class="mt-sm-5">
+        <tr>
+          <th>日付</th>
+          <th colspan="2">譲</th>
+          <th colspan="2">求</th>
+        </tr>
+      </thead>
 
-      <table class="table">
-        <thead class="mt-sm-5">
-          <tr>
-            <th>日付</th>
-            <th colspan="2">譲</th>
-            <th colspan="2">求</th>
-          </tr>
-        </thead>
-        <% @exchanges.each do |exchange| %>
-        <tbody>
-          <tr>
-            <td><%= exchange.created_at.strftime('%Y/%m/%d %-H:%-M:%-S') %></td>
-            <td>
-              <%= link_to admin_user_path(exchange) do %>
-                <%= exchange.item_user.name %>
-              <% end %>
-            </td>
-            <td><%= exchange.item.character %></td>
-            <td>
-              <%= link_to admin_user_path(exchange) do %>
-                <%= exchanged.exchanged_user.name %>
-              <% end %>
-            </td>
-            <td><%= exchange.exchanged_item %></td>
-          </tr>
-        </tbody>
-      </table>
-    <% end %>
+      <% @items.each do |item| %>
+      <tbody>
+        <tr>
+          <td><%= item.created_at.strftime('%Y/%m/%d %-H:%-M:%-S') %></td>
+          <td>
+            <%= link_to admin_user_path(item.item_user_id) do %>
+              <%= item.item_user.name %>
+            <% end %>
+          </td>
+          <td><%= attachment_image_tag item, :item_image, format: 'jpeg', size: "100x100" %></td>
+          <td>
+            <%= link_to admin_user_path(item) do %>
+              <%= item.exchanged_user.name %>
+            <% end %>
+          </td>
+          <td><%= attachment_image_tag item, :exchanged_image, format: 'jpeg', size: "100x100" %></td>
+        </tr>
+      </tbody>
+      <% end %>
+    </table>
   </div>
 </div>

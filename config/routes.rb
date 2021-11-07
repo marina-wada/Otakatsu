@@ -50,9 +50,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'homes#top'
     resources :exchanges, only: [:index]
-    resources :inquiries, only: [:index, :new, :create]
     resources :items, only: [:index]
-    resources :reports, only: [:index]
     resources :users, only: [:index,:show]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
