@@ -30,6 +30,10 @@
         <div class="col-md-6"><%= @user.email %></div>
       </div>
       <div class="row mb-3">
+        <div class="col-md-2">通報回数</div>
+        <div class="col-md-6"><%= @user.reports.count %></div>
+      </div>
+      <div class="row mb-3">
         <div class="col-md-2">入会情報</div>
         <div class="col-md-6"><%= @user.is_active %></div>
       </div>

@@ -3,43 +3,43 @@
     <div class="lead"><%= @user.name %>様の出品一覧</div>
   </div>
 
-  <div class="row">
+  <div class="row mt-5">
     <table class="table">
       <thead>
         <tr>
           <th>出品日</th>
           <th>画像</th>
           <th>グッズ情報</th>
-          <th>通報回数</th>
           <th>ステータス</th>
         </tr>
       </thead>
       <tbody>
         <% @items.each do |item| %>
           <tr>
-            <td><%= attachment_image_tag item, :item_image, format: 'jpeg', size: "100x100" %></td>
+            <td><%= item.created_at.strftime('%Y/%m/%d %-H:%-M:%-S') %></td>
+            <td><%= attachment_image_tag item, :item_image, format: 'jpeg', size: "200x200" %></td>
             <td>
-              <%= item.genre.name %>
-              <%= item.character %>
-              <%= item.kind %>
-              <%= item.introduction %>
-              <%= @item.ask_item1 %>
-              <% if @item.ask_item2.present? %>
-                <%= @item.ask_item2 %>
+              <%= item.genre.name %><br>
+              <%= item.character %><br>
+              <%= item.kind %><br>
+              <%= item.introduction %><br>
+              <%= item.ask_item1 %><br>
+              <% if item.ask_item2.present? %>
+                <%= item.ask_item2 %><br>
               <% end %>
-              <% if @item.ask_item3.present? %>
-                <%= @item.ask_item3 %>
+              <% if item.ask_item3.present? %>
+                <%= item.ask_item3 %><br>
               <% end %>
-              <% if @item.ask_item4.present? %>
-                <%= @item.ask_item4 %>
+              <% if item.ask_item4.present? %>
+                <%= item.ask_item4 %><br>
               <% end %>
-              <% if @item.ask_item5.present? %>
-                <%= @item.ask_item5 %>
+              <% if item.ask_item5.present? %>
+                <%= item.ask_item5 %><br>
               <% end %>
             </td>
-            <td><%= item.report.amount %></td>
-            <td><%= item.status %></td>
+            <td><%= item.item_status %></td>
           </tr>
+          <% end %>
       </tbody>
     </table>
   </div>

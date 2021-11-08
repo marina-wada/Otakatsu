@@ -28,15 +28,11 @@
                   <%= link_to "管理者トップ", admin_root_path, class: "nav-link text-dark" %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-dark" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "交換", admin_exchanges_path, class: "nav-link text-dark" %>
-                </li>
-                <li class="nav-item">
                   <%= link_to "ユーザー", admin_users_path, class: "nav-link text-dark" %>
                 </li>
-
+                <li class="nav-item">
+                  <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link text-dark" %>
+                </li>
               <% elsif user_signed_in? %>
                         <%= form_with url: search_items_path, method: :get, local: true do |f| %>
             <%= f.text_field :character %>

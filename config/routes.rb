@@ -49,7 +49,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'homes#top'
-    resources :exchanges, only: [:index]
+    resources :exchanges, only: [:show]
     resources :items, only: [:index]
     resources :users, only: [:index,:show]
   end
