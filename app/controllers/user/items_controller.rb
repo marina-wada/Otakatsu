@@ -53,6 +53,8 @@ class User::ItemsController < ApplicationController
           @exchange = Exchange.new(item_id: @item.id, item_user_id: @item.item_user_id, exchanged_status: @item.exchange_status, exchanged_user_id: @item.exchanged_user_id, exchanged_item_id: @item.exchanged_item_id)
         end
           @exchange.item_status = @item.item_status
+          @exchange.last_status = "item_status"
+          @exchange.last_updater = current_user.id
           @exchange.save
           redirect_to exchange_path(@item.id)
       else
@@ -90,7 +92,9 @@ class User::ItemsController < ApplicationController
             @exchange.item_user_id = @item.item_user_id
             @exchange.exchanged_user_id = @item.exchanged_user_id
             @exchange.exchanged_status = @item.exchange_status
+            @exchange.last_status = "exchangedstatus"
             @item.save
+            @exchange.last_updater = current_user.id
             @exchange.save
             redirect_to exchange_path(@item.id)
        else
@@ -103,6 +107,8 @@ class User::ItemsController < ApplicationController
          end
          @exchange.item_status = @item.item_status
          @exchange.exchanged_status = @item.exchange_status
+         @exchange.last_status = "exchanged_status"
+         @exchange.last_updater = current_user.id
          @exchange.save
          redirect_to exchange_path(@item.id)
        end
@@ -110,10 +116,18 @@ class User::ItemsController < ApplicationController
   end
 
   def search
-    if params[:character, :kind].present?
-      @items = Item.where('character LIKE (?) OR kind LIKE (?)', "%#{params[:item]}%")
+    if params[:keyword].present?
+      genre_ids = Genre.where('name LIKE ?', "%#{params[:keyword]}%").pluck(:id)
+      # binding.irb
+      @items = Item.where('genre_id IN (?) OR character LIKE ? OR kind LIKE ? OR ask_item1 LIKE ? OR ask_item2 LIKE ? OR ask_item3 LIKE ? OR ask_item4 LIKE ? OR ask_item5 LIKE ?',
+                            genre_ids, "%#{params[:keyword]}%",
+                            "%#{params[:keyword]}%", "%#{params[:keyword]}%",
+                            "%#{params[:keyword]}%", "%#{params[:keyword]}%",
+                            "%#{params[:keyword]}%", "%#{params[:keyword]}%"
+                            )
+                    .where(item_status: [0,2]).where(exchange_status: nil).order(updated_at: :DESC)
     else
-      @items = Item.none
+      @items = Item.where(item_status: [0,2]).where(exchange_status: nil).order(updated_at: :DESC)
     end
   end
 
