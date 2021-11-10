@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row mt-5">
     <div class="lead">
       <% unless params[:keyword].blank? %>
         検索結果"<%= params[:keyword] %>"
@@ -10,7 +10,7 @@
   </div>
 
   <% if @items.count > 0 %>
-    <div class="row">
+    <div class="row mt-5">
       <% @items.each do |item| %>
         <div class="col-md-3">
           <%= link_to item_path(item.id) do %>
@@ -23,6 +23,6 @@
       <% end %>
     </div>
   <% else %>
-    Nothing...(T_T)
+    <p class="mt-2">Nothing...<i class="far fa-sad-tear fa-lg"></i></p>
   <% end %>
 </div>

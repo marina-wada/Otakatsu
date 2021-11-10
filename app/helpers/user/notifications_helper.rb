@@ -13,8 +13,11 @@ module User::NotificationsHelper
       when "exchange" then
         tag.a(notification.visitor.nickname, style: "font-weight: bold;")+"が"+tag.a('あなたのグッズ', href: item_path(notification.item.id), style: "font-weight: bold;")+"に交換申し込みがありました"
         when "status" then
-        tag.a(notification.visitor.nickname, style: "font-weight: bold;")+"が"+tag.a('交換', href: item_path(notification.item.id), style: "font-weight: bold;")+"ステータスを更新しました"
+        tag.a(notification.visitor.nickname, style: "font-weight: bold;")+"が"+tag.a('交換', href: exchange_path(notification.item.id), style: "font-weight: bold;")+"ステータスを更新しました"
     end
   end
 
+  def unchecked_notifications
+    @notifications = current_user.passive_notifications.where(checked: false)
+  end
 end

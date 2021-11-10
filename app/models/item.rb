@@ -61,10 +61,10 @@ class Item < ApplicationRecord
   end
 
   def create_item_status_notification_by(current_user)
-    notification = current_user.active_notifications.new(visited_id: exchange_user_id, action: "status", item_id: self.id)
+    notification = current_user.active_notifications.new(visited_id: exchanged_user_id, action: "status", item_id: self.id)
     notification.save if notification.valid?
   end
-  
+
   def create_exchange_status_notification_by(current_user)
     notification = current_user.active_notifications.new(visited_id: item_user_id, action: "status", item_id: self.id)
     notification.save if notification.valid?
