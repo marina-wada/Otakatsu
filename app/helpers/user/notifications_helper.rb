@@ -11,7 +11,7 @@ module User::NotificationsHelper
         @room = Message.find_by(id: @visitor_message).room
         tag.a(@visitor.nickname, style: "font-weight: bold;")+"から"+tag.a('メッセージ', href: room_path(@room.id), style: "font-weight: bold;")+"が届きました"
       when "exchange" then
-        tag.a(notification.visitor.nickname, style: "font-weight: bold;")+"が"+tag.a('あなたのグッズ', href: item_path(notification.item.id), style: "font-weight: bold;")+"に交換申し込みがありました"
+        tag.a(notification.visitor.nickname, style: "font-weight: bold;")+"が"+tag.a('あなたのグッズ', href: item_path(notification.item.id), style: "font-weight: bold;")+"に"+tag.a('交換', href: exchange_path(notification.item.id), style: "font-weight: bold;")+"申し込みがありました"
         when "status" then
         tag.a(notification.visitor.nickname, style: "font-weight: bold;")+"が"+tag.a('交換', href: exchange_path(notification.item.id), style: "font-weight: bold;")+"ステータスを更新しました"
     end

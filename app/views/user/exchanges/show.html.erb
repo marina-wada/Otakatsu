@@ -70,7 +70,7 @@
                 <%= fields_for @entry do |e| %>
                   <%= e.hidden_field :user_id, value: @user.id %>
                 <% end %>
-                <%= f.submit "メッセージを送る", class: "btn btn-primary btn-lg btn-block item-show-chat" %>
+                <%= f.submit "メッセージを送る", class: "btn btn-primary btn-sm item-show-chat" %>
               <% end %>
           <% end %>
         <% end %>
