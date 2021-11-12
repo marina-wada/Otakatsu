@@ -1,5 +1,8 @@
 <div class="container">
-  <div class="row mt-sm-5">
+  <div class="row">
+    <%= render partial: 'layouts/flash' %>
+  </div>
+  <div class="row mt-sm-5 fukidashi">
     <div class="lead">交換</div>
   </div>
 
@@ -16,11 +19,15 @@
         <% end %>
       </div>
       <% if @item.item_user == current_user %>
-        <%= form_with model: @item, url: item_path(@item), local: true do |f| %>
-          <div class="col-xs-8 col-sm-6 mt-3">
-            <%= f.select(:item_status, @item.select_item_status.keys.map {|k| k}) %>
-            <%= f.submit "更新", class: "btn btn-success btn-sm" %>
-          </div>
+        <% if @item.item.status == '非承認' || @item.item.status == '交換終了' || @item.item.status == '受取済' %>
+          <p>交換ステータス：<%= @item.item_status %></p>
+        <% else %>
+          <%= form_with model: @item, url: item_path(@item), local: true do |f| %>
+            <div class="col-xs-8 col-sm-6 mt-3">
+              <%= f.select(:item_status, @item.select_item_status.keys.map {|k| k}) %>
+              <%= f.submit "更新", class: "btn btn-success btn-sm" %>
+            </div>
+          <% end %>
         <% end %>
       <% else %>
         <p>交換ステータス：<%= @item.item_status %></p>
@@ -44,7 +51,10 @@
         <% if @item.item_status == '未交換' %>
           <p><%= @item.item_user.nickname %>さんから承認いただけるまでお待ちください</p>
         <% elsif @item.item_status == '非承認' %>
-          <p><%= @item.item_user.nickname %>さんから承認いただけませんでした。引き続きグッズの交換をお楽しみください。</p>
+          <p>
+            <%= @item.item_user.nickname %>さんから承認いただけませんでした。<br>
+            引き続きグッズの交換をお楽しみください。
+          </p>
         <% else %>
           <%= form_with model: @item, url: item_path(@item), local: true do |f| %>
             <div class="col-xs-8 col-sm-6">

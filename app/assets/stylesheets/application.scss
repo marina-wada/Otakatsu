@@ -20,19 +20,38 @@
   color: #0d0015;
 }
 
-.circle {
-  background: #ec4646;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  color: #fff;
-  font-size: 20px;
-  text-align: center;
-  line-height: 50px;
+.fukidashi {
+  position: relative;
+  padding: 0.6em;
+  background: #e0edff;
+}
+
+.fukidashi:after {
+  position: absolute;
+  content: '';
+  top: 100%;
+  left: 30px;
+  border: 15px solid transparent;
+  border-top: 15px solid #e0edff;
+  width: 0;
+  height: 0;
+}
+
+.otakatsu-top {
+  background-image: image-url('Otakatsu_top.jpeg');
+  height: 250px;
+  weight: 100%;
+  background-size: cover;
+  margin : 0 auto;
 }
 
 .search-result-img {
   width: 100%;
-  height: 200px;
+  height: 2000px;
   object-fit: cover;
+}
+
+.container {
+
+　background: #38b48b;
 }

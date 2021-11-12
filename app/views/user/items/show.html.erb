@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">
-    <%= render partial: 'layouts/flash' %>
+      <%= render partial: 'layouts/flash' %>
   </div>
 
   <div class="row">
-    <div class="mt-sm-5 text-xs-left">
+    <div class="mt-sm-5 text-xs-left fukidashi">
       <%= @item.item_user.nickname %>のグッズ
     </div>
   </div>
@@ -97,7 +97,7 @@
       <div class="col-md-12 mt-md-5 mt-sm-2">
         <% if @item.item_status == '未交換' && @item.exchange_status == nil %>
           <%= link_to "編集する", edit_item_path(current_user), class: "btn btn-info btn-sm" %>
-        <% if @item.item_status == '非承認' && @item.exchange_status == nil %>
+        <% elsif @item.item_status == '非承認' %>
           <%= link_to "編集する", edit_item_path(current_user), class: "btn btn-info btn-sm" %>
         <% elsif @item.item_status == '未交換' && @item.exchange_status == '交換希望' %>
           <%= link_to "交換詳細ページへ", exchange_path(@item.id), class: "btn btn-info btn-sm" %>
