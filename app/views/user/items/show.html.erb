@@ -101,7 +101,7 @@
           <%= link_to "編集する", edit_item_path(current_user), class: "btn btn-info btn-sm" %>
         <% elsif @item.item_status == '未交換' && @item.exchange_status == '交換希望' %>
           <%= link_to "交換詳細ページへ", exchange_path(@item.id), class: "btn btn-info btn-sm" %>
-        <% elsif @item.item_status == '承認' || @item.item_status == '配送準備' || @item.item_status == '配送済' || @item.item_status == '配送済' || @item.item_status == '受取済' || @item.item_status == '交換グッズ確認' || @item.item_status == 'グッズ状態NG' %>
+        <% elsif @item.item_status == '承認' || @item.item_status == '配送準備' || @item.item_status == '配送済' || @item.item_status == '配送済' || @item.item_status == '受取済' || @item.item_status == '交換グッズ確認' || @item.item_status == 'グッズ状態ＮＧ' %>
           <%= link_to "交換詳細ページへ", exchange_path(@item.id), class: "btn btn-info btn-sm" %>
         <% end %>
       </div>

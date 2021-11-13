@@ -25,6 +25,8 @@ class Item < ApplicationRecord
       Item.item_statuses.select{ |k,v| k == '承認' || k == '非承認'}
     elsif item_status == '承認'
       Item.item_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
+    elsif item_status == '配送準備'
+      Item.item_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
     elsif item_status == '配送済'
       Item.item_statuses.select{ |k,v| k == '受取済' || k == 'グッズ状態ＮＧ'}
     elsif item_status == 'グッズ状態ＮＧ'
@@ -41,12 +43,14 @@ class Item < ApplicationRecord
   def select_exchanage_status
     if item_status == '承認'
       Item.exchange_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
+    elsif exchange_status == '配送準備'
+      Item.exchange_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
     elsif exchange_status == '配送済'
       Item.exchange_statuses.select{ |k,v| k == '受取済' || k == 'グッズ状態ＮＧ'}
     elsif exchange_status == 'グッズ状態ＮＧ'
       Item.exchange_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
-    elsif item_status == 'グッズ状態ＮＧ'
-      Item.exchange_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
+    elsif item_status == '返品'
+      Item.exchange_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
     elsif exchange_status == '返品'
       Item.exchange_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
     else
