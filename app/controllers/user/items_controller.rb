@@ -1,5 +1,5 @@
 class User::ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :destroy, :edit]
+  before_action :authenticate_user!, only: [:new, :create, :destroy, :edit, :show]
 
   def index
     @items = current_user.items
@@ -93,7 +93,7 @@ class User::ItemsController < ApplicationController
            @exchange.item_user_id = @item.item_user_id
            @exchange.exchanged_user_id = @item.exchanged_user_id
            @exchange.exchanged_status = @item.exchange_status
-           @exchange.last_status = "exchangedstatus"
+           @exchange.last_status = "exchanged_status"
            @item.save
            @exchange.last_updater = current_user.id
            @exchange.save
@@ -125,7 +125,7 @@ class User::ItemsController < ApplicationController
            @exchange.item_user_id = @item.item_user_id
            @exchange.exchanged_user_id = @item.exchanged_user_id
            @exchange.exchanged_status = @item.exchange_status
-           @exchange.last_status = "exchangedstatus"
+           @exchange.last_status = "exchanged_status"
            @item.save
            @exchange.last_updater = current_user.id
            @exchange.save
@@ -151,7 +151,6 @@ class User::ItemsController < ApplicationController
   def search
     if params[:keyword].present?
       genre_ids = Genre.where('name LIKE ?', "%#{params[:keyword]}%").pluck(:id)
-      # binding.irb
       @items = Item.where('genre_id IN (?) OR character LIKE ? OR kind LIKE ? OR ask_item1 LIKE ? OR ask_item2 LIKE ? OR ask_item3 LIKE ? OR ask_item4 LIKE ? OR ask_item5 LIKE ?',
                             genre_ids, "%#{params[:keyword]}%",
                             "%#{params[:keyword]}%", "%#{params[:keyword]}%",

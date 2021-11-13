@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container main">
   <div class="row">
     <div class="lead mt-sm-5">交換一覧</div>
   </div>
@@ -14,27 +14,31 @@
       </thead>
 
       <% @items.each do |item| %>
-      <tbody>
-        <tr>
-          <td>
-            <%= link_to admin_exchange_path(item) do %>
-              <%= item.created_at.strftime('%Y/%m/%d %-H:%-M:%-S') %>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to admin_user_path(item.item_user_id) do %>
-              <%= item.item_user.name %>
-            <% end %>
-          </td>
-          <td><%= attachment_image_tag item, :item_image, format: 'jpeg', size: "100x100" %></td>
-          <td>
-            <%= link_to admin_user_path(item) do %>
-              <%= item.exchanged_user.name %>
-            <% end %>
-          </td>
-          <td><%= attachment_image_tag item, :exchanged_image, format: 'jpeg', size: "100x100" %></td>
-        </tr>
-      </tbody>
+        <% if item.item_status == '未交換' && item.exchange_status == nil %>
+        <% elsif item.item_status == '非承認' %>
+        <% else %>
+          <tbody>
+            <tr>
+              <td>
+                <%= link_to admin_exchange_path(item) do %>
+                  <%= item.created_at.strftime('%Y/%m/%d %-H:%-M:%-S') %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to admin_user_path(item.item_user_id) do %>
+                  <%= item.item_user.name %>
+                <% end %>
+              </td>
+              <td><%= attachment_image_tag item, :item_image, format: 'jpeg', size: "100x100" %></td>
+              <td>
+                <%= link_to admin_user_path(item) do %>
+                  <%= item.exchanged_user.name %>
+                <% end %>
+              </td>
+              <td><%= attachment_image_tag item, :exchanged_image, format: 'jpeg', size: "100x100" %></td>
+            </tr>
+          </tbody>
+        <% end %>
       <% end %>
     </table>
   </div>

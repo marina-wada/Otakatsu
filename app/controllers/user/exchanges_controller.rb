@@ -4,6 +4,7 @@ class User::ExchangesController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @user = @item.item_user
+    redirect_to root_path unless current_user.id == @item.item_user_id || current_user.id == @item.exchanged_user_id
     @currentUserEntry = current_user.entries
     @userEntry = @user.entries
     unless @user.id == current_user.id

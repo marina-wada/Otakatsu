@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container mt-5 main-no-bottom">
   <div class="row">
-    <span class="lead mt-sm-5"><%= current_user.nickname %>さんのマイページ </span>
+    <span class="lead mt-sm-5 col-xs-3 col-sm-4 col-md-3 col-lg-3 fukidashi"><%= current_user.nickname %>さんのマイページ </span>
   </div>
 
-  <h5 class="mt-sm-5 fukidashi">交換</h5>
+  <h5 class="mt-5">交換</h5>
     <div class="row">
       <div class="col-sm-2 ml-sm-3">
         <%= link_to "出品したグッズ", items_path, class: "link" %>
@@ -14,7 +14,7 @@
     </div>
 
   <h5 class="mt-sm-4">ユーザー情報</h5>
-  <div class="row">
+  <div class="row  mb-2">
     <div class="col-sm-2 ml-sm-3">
       <%= link_to "編集", edit_user_path, class: "link" %>
     </div>

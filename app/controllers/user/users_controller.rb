@@ -29,9 +29,14 @@ class User::UsersController < ApplicationController
 
   def withdrawl
     @user = User.find(current_user.id)
-    @user.update(is_active: '退会済')
-    reset_session
-    redirect_to root_path
+    if @user.update(is_active: '退会済')
+      reset_session
+      flash[:success] = "退会手続きが完了いたしました"
+      redirect_to root_path
+    else
+      flash[:alert] = "退会手続きに失敗しました。再度手続きをおねがいいたします"
+      redirect_to root_path
+    end
   end
 
   private

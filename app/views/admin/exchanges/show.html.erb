@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container main">
   <div class="row">
-    <div class="lead">交換履歴</div>
+    <div class="lead mt-5">交換履歴</div>
   </div>
 
-  <div class="row">
+  <div class="row mt-5">
     <table class="table">
       <thead>
         <tr>
@@ -23,7 +23,7 @@
                   <% unless exchange.last_status.nil? %>
                     <% if exchange.last_status == "exchanged_status" %>
                       <%= exchange.exchanged_status %>
-                    <% elsif exchange.item_status== "item_status" %>
+                    <% elsif exchange.item_status == "item_status" %>
                       <%= exchange.item_status %>
                     <% end %>
                   <% end %>

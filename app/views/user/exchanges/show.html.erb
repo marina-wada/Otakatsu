@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container mt-5 main">
   <div class="row">
     <%= render partial: 'layouts/flash' %>
   </div>
   <div class="row mt-sm-5 fukidashi">
-    <div class="lead">交換</div>
+    <div class="lead col-xs-3 col-sm-4 col-md-3 col-lg-3">交換</div>
   </div>
 
   <div class="row mt-sm-5">
@@ -19,7 +19,7 @@
         <% end %>
       </div>
       <% if @item.item_user == current_user %>
-        <% if @item.item.status == '非承認' || @item.item.status == '交換終了' || @item.item.status == '受取済' %>
+        <% if @item.item_status == '非承認' || @item.item_status == '交換終了' || @item.item_status == '受取済' %>
           <p>交換ステータス：<%= @item.item_status %></p>
         <% else %>
           <%= form_with model: @item, url: item_path(@item), local: true do |f| %>
