@@ -50,7 +50,7 @@ class Item < ApplicationRecord
     elsif exchange_status == 'グッズ状態ＮＧ'
       Item.exchange_statuses.select{ |k,v| k == '返品' || k == '交換終了'}
     elsif item_status == '返品'
-      Item.exchange_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
+      Item.exchange_statuses.select{ |k,v| k == '返品' ||k == '配送準備' || k == '配送済'}
     elsif exchange_status == '返品'
       Item.exchange_statuses.select{ |k,v| k == '配送準備' || k == '配送済'}
     else
