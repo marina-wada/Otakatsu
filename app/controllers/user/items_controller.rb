@@ -151,8 +151,8 @@ class User::ItemsController < ApplicationController
   def search
     if params[:keyword].present?
       genre_ids = Genre.where('name LIKE ?', "%#{params[:keyword]}%").pluck(:id)
-      @items = Item.or(Items.where(genre_id: [genre_ids])).where('items.character LIKE ? OR kind LIKE ? OR ask_item1 LIKE ? OR ask_item2 LIKE ? OR ask_item3 LIKE ? OR ask_item4 LIKE ? OR ask_item5 LIKE ?',
-                            "%#{params[:keyword]}%",
+      @items = Item.where('genre_id IN (?) OR items.character LIKE ? OR kind LIKE ? OR ask_item1 LIKE ? OR ask_item2 LIKE ? OR ask_item3 LIKE ? OR ask_item4 LIKE ? OR ask_item5 LIKE ?',
+                            genre_ids, "%#{params[:keyword]}%",
                             "%#{params[:keyword]}%", "%#{params[:keyword]}%",
                             "%#{params[:keyword]}%", "%#{params[:keyword]}%",
                             "%#{params[:keyword]}%", "%#{params[:keyword]}%"
